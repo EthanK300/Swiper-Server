@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
+const IP = process.env.IP || localhost;
 
 console.log("initializing");
 
@@ -17,6 +18,13 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`server is running at http://localhost:${PORT}`);
+app.get('/request', (req, res) => {
+    console.log("received a request");
+    res.status(200).json({
+        text: "some text",
+    });
+});
+
+app.listen(PORT, IP, () => {
+  console.log(`server is running at http://${IP}:${PORT}`);
 });
