@@ -1,14 +1,33 @@
+console.log("initializing");
+
 const express = require('express');
 const path = require('path');
 const app = express();
 const dotenv = require('dotenv');
+const {MongoClient} = require("mongodb");
+
+const uri = 'mongodb://localhost:27017'
+const client = new MongoClient(uri);
+
+async function run() {
+    try{
+        await client.connect();
+        const database = client.db('test');
+        database == null ? console.log("null db") : console.log("good db");
+    }catch(err){
+        console.log("error" + err);
+    }finally{
+
+    }
+}
+
+run();
 
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 const IP = process.env.IP || localhost;
 
-console.log("initializing");
 
 // static files from React
 app.use(express.static(path.join(__dirname, '../client/build/')));
