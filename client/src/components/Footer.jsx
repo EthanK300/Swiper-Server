@@ -1,9 +1,9 @@
 function Footer() {
 
     return (
-        <nav className="footer">
-
-        </nav>
+        <footer className="footer">
+            <p>&copy; 2025 Swiper by Ethan K. All rights reserved</p>
+        </footer>
     );
 }
 

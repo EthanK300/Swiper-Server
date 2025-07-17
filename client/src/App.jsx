@@ -1,17 +1,27 @@
-import logo from './assets/swiperlogobetter.png';
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
-function Greet(prop) {
-  return (<h1>{prop.name} xd</h1>);
-}
+import Main from "./pages/Main";
+import LandingPage from "./pages/LandingPage";
+import LoginRegister from "./pages/LoginRegister";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-      <Greet name="ethan" />
-    </div>
+    <Router>
+      <Navbar />
+
+      <main>
+        <Routes>
+            <Route path="/" element={<LandingPage/>} />
+            <Route path="/swiper" element={<Main/>} />
+            <Route path="/login" element={<LoginRegister/>} />
+        </Routes>
+      </main>
+
+      <Footer />
+    </Router>
   );
 }
 
