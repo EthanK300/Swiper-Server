@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import swiperlogo from '../assets/swiperlogobetter.png';
+import blankprofile from '../assets/blank_profile.png';
 // import { AuthContext } from '../context/AuthContext';
 
 import '../styles/navbar.css'
@@ -19,19 +20,31 @@ function Navbar() {
 
     const home = () => {
         navigate('/');
-        console.log('aaaa');
+        console.log('navigating to home');
+    }
+
+    const about = () => {
+        navigate('/about');
+        console.log('navigating to about');
+    }
+
+    const profile = () => {
+        console.log('profile clicked');
     }
 
     return (
         <nav id="navbar">
-            <div className="nav-left">
-                <button className="home-button" onClick={home}>
+            <div id="nav-left">
+                <button id="home-button" onClick={home}>
                     <img src={swiperlogo} alt="Swiper Home Icon" id="swiper-icon"/>
-                    <span>wiper</span>
+                    <span>WIPER</span>
                 </button>
-                {/* TODO: replace these link with actual buttons later */}
             </div>
-            <div className="nav-right">
+            <div id="nav-right">
+                <button id="about-button" onClick={about}>About</button>
+                <button id="profile-button" onClick={profile}>
+                    <img src={blankprofile} alt="Profile" id="profile-icon"/>
+                </button>
             </div>
         </nav>
     );
