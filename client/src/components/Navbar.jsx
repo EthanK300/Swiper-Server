@@ -19,21 +19,19 @@ function Navbar() {
 
     const home = () => {
         navigate('/');
+        console.log('aaaa');
     }
 
     return (
-        <nav className="navbar">
+        <nav id="navbar">
             <div className="nav-left">
                 <button className="home-button" onClick={home}>
                     <img src={swiperlogo} alt="Swiper Home Icon" id="swiper-icon"/>
                     <span>wiper</span>
                 </button>
-                <Link to="/">Home</Link> 
                 {/* TODO: replace these link with actual buttons later */}
             </div>
             <div className="nav-right">
-                <Link to="/login"></Link>
-                <Link to="/about"></Link>
             </div>
         </nav>
     );
