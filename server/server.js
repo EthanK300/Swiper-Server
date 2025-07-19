@@ -26,7 +26,7 @@ run();
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
-const IP = process.env.IP || localhost;
+const IP = process.env.IP || 'localhost';
 
 
 // static files from React

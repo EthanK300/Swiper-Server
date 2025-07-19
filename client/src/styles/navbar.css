@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'exo2';
+    src: url('../assets/exo2fontreal.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#swiper-icon {
+    width:5vw;
+    height:5vw;
+    border-radius: 100%;
+}
+
+.home-button {
+    display:flex;
+    align-items: center;
+    font-family: exo2;
+    font-size: 3.5em;
+    background: none;
+    border: none;
+}
