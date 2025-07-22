@@ -1,0 +1,39 @@
+.stack-container {
+    width: 25vw;
+    height: 35vh;
+    overflow: hidden;
+    margin: 0;
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+  
+.stacked-cards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+  
+.card {
+    position: absolute;
+    width: 25vw;
+    height: 5vh;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    transform-origin: center center;
+    user-select: none;
+    pointer-events: none;
+}
+  
