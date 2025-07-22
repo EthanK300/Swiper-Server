@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import StackedScroll from "../components/StackedScroller";
+import "../styles/landingpage.css";
+
 
 function LandingPage() {
     const navigate = useNavigate();
@@ -8,11 +10,16 @@ function LandingPage() {
     };
 
     return (
-        <>
-            <h1>test landing page</h1>
-            <button onClick={handleLogin}>Login</button>
-            <StackedScroll/>
-        </>
+        <div id="cta">
+            <div id="left">
+                <div id="cta-circle">
+                    <span id="cta-text">Supercharging your productivity</span>
+                </div>
+            </div>
+            <div id="right">
+                <StackedScroll/>
+            </div>
+        </div>
     );
 }
 

@@ -14,8 +14,8 @@ function App() {
     <AuthProvider>
         <Router>
         <Navbar />
-        
-        <main>
+
+        <main style={{ paddingTop: 'calc(10vh + 32px)' }}>
             <Routes>
                 <Route path="/" element={<LandingPage/>} />
                 <Route path="/swiper" element={<Main/>} />

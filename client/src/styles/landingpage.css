@@ -1,0 +1,44 @@
+#cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    height: 90vh;
+}
+
+#left {
+    position: relative;
+    height: 100%;
+}
+
+#cta-circle {
+    aspect-ratio: 1/1;
+    width: 100%;
+    background-color: #086788;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: -15vw;
+    top: -15vh;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+#cta-text {
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    width: 200px;
+}
+
+#right {
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    left: -15vw;
+}

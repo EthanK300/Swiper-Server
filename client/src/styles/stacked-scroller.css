@@ -1,6 +1,6 @@
 .stack-container {
     width: 25vw;
-    height: 35vh;
+    height: 49vh;
     overflow: hidden;
     margin: 0;
     position: relative; 
@@ -23,7 +23,7 @@
 .card {
     position: absolute;
     width: 25vw;
-    height: 5vh;
+    height: 7vh;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -35,5 +35,5 @@
     transform-origin: center center;
     user-select: none;
     pointer-events: none;
+    background: #ADD8E6;
 }
-  

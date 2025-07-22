@@ -27,7 +27,7 @@ function StackedScroll() {
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex(prev => (prev === messages.length - 1 ? 0 : prev + 1));
-        }, 3000); 
+        }, 2500); 
         // scroll every 3 seconds
         return () => clearInterval(interval);
     }, []);
@@ -40,11 +40,11 @@ function StackedScroll() {
         }
         
         if (Math.abs(dist) <= range) {
-            const translatePercent = dist * 120; // vertical offset in %
+            const translatePercent = dist * 150; // vertical offset in %
             const scale = 1 - Math.abs(dist * 0.1);
             const opacity = 1 - Math.abs(dist * 0.1);
             return {
-                transform: `translateY(${translatePercent}%) scale(${scale * scale})`,
+                transform: `translateY(${translatePercent}%) translateX(${Math.abs(dist) * 5}%) scale(${scale * scale})`,
                 opacity: opacity,
             };
         }
