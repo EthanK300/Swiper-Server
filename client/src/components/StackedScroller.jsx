@@ -36,17 +36,19 @@ function StackedScroll() {
     const getStyle = (index) => {
         const dist = withinBounds(index, activeIndex);
         if (dist === 0) {
-            return { transform: 'scale(1)', opacity: 1 };
+            return { transform: 'scale(1)', opacity: 1, border: '2px solid blue' };
         }
         
         if (Math.abs(dist) <= range) {
             const translatePercent = dist * 150; // vertical offset in %
             const scale = 1 - Math.abs(dist * 0.1);
-            const opacity = 1 - Math.abs(dist * 0.1);
+            const opacity = 1 - Math.abs(dist * 0.2);
             return {
-                transform: `translateY(${translatePercent}%) translateX(${Math.abs(dist) * 5}%) scale(${scale * scale})`,
+                transform: `translateY(${translatePercent}%) scale(${scale * scale})`,
                 opacity: opacity,
             };
+            // translateX(${Math.abs(dist) * 5}%) <- this is for shifting horizontally
+            // TODO: make devices horizontally scroll behind the tasks
         }
         
         return { opacity: 0 };
@@ -61,7 +63,7 @@ function StackedScroll() {
                 className="card"
                 style={{
                 ...getStyle(i),
-                transition: "transform 0.5s ease, opacity 0.5s ease",
+                transition: "transform 1s ease, opacity 0.25s ease",
                 }}
             >
                 {msg}

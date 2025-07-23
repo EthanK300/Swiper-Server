@@ -10,14 +10,19 @@ function LandingPage() {
     };
 
     return (
-        <div id="cta">
-            <div id="left">
-                <div id="cta-circle">
-                    <span id="cta-text">Supercharging your productivity</span>
+        <div id="content">
+            <div id="cta">
+                <div id="left">
+                    <div id="cta-circle">
+                        <span id="cta-text">Supercharging your productivity.</span>
+                    </div>
+                </div>
+                <div id="right">
+                    <StackedScroll/>
                 </div>
             </div>
-            <div id="right">
-                <StackedScroll/>
+            <div id="whatis">
+                
             </div>
         </div>
     );
