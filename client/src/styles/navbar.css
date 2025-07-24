@@ -6,6 +6,10 @@
     --base: #086788;
 }
 
+* {
+    font-family: 'exo2';
+}
+
 @font-face {
     font-family: 'exo2';
     src: url('../assets/exo2fontreal.ttf');

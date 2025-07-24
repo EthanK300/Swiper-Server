@@ -20,14 +20,16 @@ function withinBounds(index, activeIndex){
   return Math.abs(direct) < Math.abs(alt) ? direct : alt;
 }
 
-function StackedScroll() {
+function StackedScroll( { id, className } ) {
     // store active center card index
     const [activeIndex, setActiveIndex] = useState(0);
+
+    const name = className;
 
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex(prev => (prev === messages.length - 1 ? 0 : prev + 1));
-        }, 2500); 
+        }, 2000); 
         // scroll every 3 seconds
         return () => clearInterval(interval);
     }, []);
@@ -48,14 +50,13 @@ function StackedScroll() {
                 opacity: opacity,
             };
             // translateX(${Math.abs(dist) * 5}%) <- this is for shifting horizontally
-            // TODO: make devices horizontally scroll behind the tasks
         }
         
         return { opacity: 0 };
     };
 
     return (
-        <div className="stack-container">
+        <div className={`stack-container ${name}`} id={id}>
         <div className="stacked-cards">
             {messages.map((msg, i) => (
             <div

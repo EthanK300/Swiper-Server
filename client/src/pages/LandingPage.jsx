@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import StackedScroll from "../components/StackedScroller";
+import DeviceScroll from "../components/DeviceScroller";
 import "../styles/landingpage.css";
 
 
@@ -18,11 +19,10 @@ function LandingPage() {
                     </div>
                 </div>
                 <div id="right">
-                    <StackedScroll/>
+                    <DeviceScroll/>
                 </div>
             </div>
             <div id="whatis">
-                
             </div>
         </div>
     );
