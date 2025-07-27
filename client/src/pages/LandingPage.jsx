@@ -30,17 +30,21 @@ function LandingPage() {
                     <div id="circle-wrapper">
                         <img src={personphoneimg} alt="person on phone" id="popimg"/>
                     </div>
-                    <p id="general">test test test 
-                    test test test 
-                    test test test 
-                    test test test 
-                    test test test 
-                    test test test 
-                    test test test 
-                    test test test 
-                    test test test 
-                    test test test 
-                    </p>
+                    <ul id="general">Swiper is a sleek, task-oriented app designed to 
+                    help you track and manage time-sensitive activities with ease.
+                        <li>
+                        Create and organize items with intuitive forms
+                        </li>
+                        <li>
+                        Easy scheduling using built-in date and time pickers, and view tasks in a clean,
+                        responsive layout
+                        </li>
+                        <li>
+                        Optimized for speed and simplicity
+                        </li>
+                        Swiper 
+                        keeps you focused on what matters most - getting things done.
+                    </ul>
                 </div>
             </div>
         </div>

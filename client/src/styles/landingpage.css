@@ -36,7 +36,7 @@
 
 #cta-text {
     color: white;
-    font-size: 3em;
+    font-size: 2.5vw;
     font-weight: bold;
     text-align: center;
     width: 200px;
@@ -56,7 +56,7 @@
 #whatis {
     border-radius: 10vw;
     width: 90vw;
-    height: 100vh;
+    height: 60vh;
     background: cyan;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     position: relative;
@@ -74,7 +74,7 @@
 
 #left-right {
     width: 93%;
-    height: 40%;
+    height: 60%;
     display: flex;
     flex-direction: row;
     margin-left: 3.5%;
@@ -85,6 +85,7 @@
 #circle-wrapper {
     aspect-ratio: 1 / 1;
     height: 100%;
+    margin-left: 7.5%;
 }
 
 #popimg {
@@ -97,9 +98,16 @@
 
 #general {
     height: auto;
-    width: 40%;
+    width: 55%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
     margin-bottom: 0;
+    font-size: auto;
+    font-weight: auto;
+    line-height: 2em;
+}
+
+ul li {
+    margin-left: 2em;
 }
