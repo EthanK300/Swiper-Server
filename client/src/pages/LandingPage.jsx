@@ -45,7 +45,7 @@ function LandingPage() {
                         Swiper 
                         keeps you focused on what matters most - getting things done.
                     </ul>
-                </div>
+                </div>  
             </div>
         </div>
     );
