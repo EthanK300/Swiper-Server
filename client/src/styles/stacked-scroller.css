@@ -1,9 +1,8 @@
 .stack-container {
-    width: 25vw;
     height: 49vh;
     overflow: hidden;
     margin: 0;
-    position: relative; 
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,20 +40,17 @@
 
 .scroller {
     pointer-events: none;
-    position: absolute;
-    width: 100%;
+    width: 75%;
     height: 100%;
     font-size: 0.6em;
 }
 
 .scroller > .stacked-cards > .card {
     font-size: 1.5em;
-    width: 25%;
 }
 
 /* phone */
 #scroller-0 {
-    width: 80%;
 }
 
 /* laptop */
@@ -63,4 +59,10 @@
 
 /* tablet */
 #scroller-2 {
+}
+
+#test {
+    width: 50vw;
+    height: 50vh;
+    position: relative;
 }

@@ -53,7 +53,8 @@ function DeviceScroll() {
                     key={i}
                     src={img}
                     alt="device"
-                />
+                    className="image"
+                ></img>
                 <StackedScroll id={`scroller-${i}`} className="scroller"/>
             </div>
             ))}

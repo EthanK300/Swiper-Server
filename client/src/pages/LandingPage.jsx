@@ -4,7 +4,7 @@ import DeviceScroll from "../components/DeviceScroller";
 import "../styles/landingpage.css";
 
 import personphoneimg from "../assets/persononphone.jpg"
-
+import cityscape from "../assets/cityscape2.jpeg"
 
 function LandingPage() {
     const navigate = useNavigate();
@@ -25,12 +25,10 @@ function LandingPage() {
                 </div>
             </div>
             <div id="whatis">
-                <h1 id="headline">What is Swiper?</h1>
-                <div id="left-right">
-                    <div id="circle-wrapper">
-                        <img src={personphoneimg} alt="person on phone" id="popimg"/>
-                    </div>
-                    <ul id="general">Swiper is a sleek, task-oriented app designed to 
+                <h1 class="headline">What is Swiper?</h1>
+                <div class="left-right">
+                    <img src={personphoneimg} alt="person on phone" class="popimg"/>
+                    <ul class="general">Swiper is a sleek, task-oriented app designed to 
                     help you track and manage time-sensitive activities with ease.
                         <li>
                         Create and organize items with intuitive forms
@@ -45,8 +43,17 @@ function LandingPage() {
                         Swiper 
                         keeps you focused on what matters most - getting things done.
                     </ul>
-                </div>  
+                </div>
+                <h1 class="headline">Our Mission</h1>
+                <div class="right-left">
+                    <p class="general" id="mission-text">
+                        Our mission at the Swiper team is to build tools optimized for clarity, efficiency, and usability. 
+                        Even small conveniences we take seriously to ensure a smooth user experience. 
+                    </p>
+                    <img src={cityscape} alt="city scape" class="popimg" id="city"/>
+                </div>
             </div>
+            <StackedScroll id="test"/>
         </div>
     );
 }
