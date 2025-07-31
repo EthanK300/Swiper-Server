@@ -28,11 +28,11 @@ function DeviceScroll() {
         if (index === activeIndex) {
             return { transform: "translateX(0%)", opacity: 1, zIndex: 2 };
         } else if (index === (activeIndex + 1) % devices.length) {
-            return { transform: "translateX(100%)", opacity: 0, zIndex: 1 };
+            return { transform: "translateX(75vw)", opacity: 0, zIndex: 1 };
         } else if (index === (activeIndex - 1 + devices.length) % devices.length) {
-            return { transform: "translateX(-100%)", opacity: 0, zIndex: 1 };
+            return { transform: "translateX(-75vw)", opacity: 0, zIndex: 1 };
         } else {
-            return { transform: "translateX(200%)", opacity: 0, zIndex: 0 }; // hidden if too far
+            return { transform: "translateX(150vw)", opacity: 0, zIndex: 0 }; // hidden if too far
         }
     };
 

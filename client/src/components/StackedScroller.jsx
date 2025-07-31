@@ -36,6 +36,7 @@ function StackedScroll( { id, className } ) {
 
     // calculate opacity for fading
     const getStyle = (index) => {
+        /*
         const dist = withinBounds(index, activeIndex);
         if (dist === 0) {
             return { transform: 'scale(1)', opacity: 1, border: '2px solid blue' };
@@ -50,6 +51,20 @@ function StackedScroll( { id, className } ) {
                 opacity: opacity,
             };
             // translateX(${Math.abs(dist) * 5}%) <- this is for shifting horizontally
+        }
+        */
+        if (index === activeIndex) {
+            return { transform: "translateY(0%)", opacity: 1, zIndex: 2 };
+        } else if (index === (activeIndex + 1) % messages.length) {
+            return { transform: "translateY(150%)", opacity: 0.75, zIndex: 1 };
+        } else if (index === (activeIndex - 1 + messages.length) % messages.length) {
+            return { transform: "translateY(-150%)", opacity: 0.75, zIndex: 1 };
+        } else if (index === (activeIndex + 2) % messages.length) {
+            return { transform: "translateY(300%)", opacity: 0.5, zIndex: 1 };
+        } else if (index === (activeIndex - 2 + messages.length) % messages.length) {
+            return { transform: "translateY(-300%)", opacity: 0.5, zIndex: 1 };
+        } else {
+            return { transform: "translateY(400%)", opacity: 0, zIndex: 0 }; // hidden if too far
         }
         
         return { opacity: 0 };
