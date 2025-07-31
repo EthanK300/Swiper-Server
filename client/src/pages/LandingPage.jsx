@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import StackedScroll from "../components/StackedScroller";
 import DeviceScroll from "../components/DeviceScroller";
+import SignupForm from "../components/SignupForm";
 import "../styles/landingpage.css";
 
 import personphoneimg from "../assets/persononphone.jpg"
@@ -53,7 +54,9 @@ function LandingPage() {
                     <img src={cityscape} alt="city scape" class="popimg" id="city"/>
                 </div>
             </div>
-            {/* <StackedScroll id="test"/> */}
+            <div id="sign-up">
+                <SignupForm/>
+            </div>
         </div>
     );
 }
