@@ -5,7 +5,6 @@ import { AuthProvider } from "./components/AuthContext";
 import Main from "./pages/Main";
 import LandingPage from "./pages/LandingPage";
 import LoginRegister from "./pages/LoginRegister";
-import About from "./pages/About";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -20,7 +19,6 @@ function App() {
                 <Route path="/" element={<LandingPage/>} />
                 <Route path="/swiper" element={<Main/>} />
                 <Route path="/login" element={<LoginRegister/>} />
-                <Route path="/about" element={<About/>} />
             </Routes>
         </main>
 

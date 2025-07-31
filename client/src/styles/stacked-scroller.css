@@ -40,7 +40,7 @@
 
 .scroller {
     pointer-events: none;
-    width: 75%;
+    width: 65%;
     height: 100%;
     font-size: 0.6em;
 }
@@ -51,6 +51,7 @@
 
 /* phone */
 #scroller-0 {
+    font-size: 0.4em;
 }
 
 /* laptop */

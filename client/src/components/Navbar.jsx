@@ -27,7 +27,10 @@ function Navbar() {
     }
 
     const about = () => {
-        navigate('/about');
+        const offset = window.innerHeight * 0.1;
+        const element = document.getElementById('whatis');
+        const y = element.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: y, behavior: 'smooth'});
         console.log('navigating to about');
     }
 

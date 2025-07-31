@@ -53,7 +53,7 @@ function LandingPage() {
                     <img src={cityscape} alt="city scape" class="popimg" id="city"/>
                 </div>
             </div>
-            <StackedScroll id="test"/>
+            {/* <StackedScroll id="test"/> */}
         </div>
     );
 }

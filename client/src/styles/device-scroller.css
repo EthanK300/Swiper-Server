@@ -14,7 +14,8 @@
 .device {
     position: absolute;
     display: flex;
-    height: 100%;
+    height: 50vw;
+    max-height: 100%;
     width: auto;
     transform-origin: center center;
 
