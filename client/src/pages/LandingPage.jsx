@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import StackedScroll from "../components/StackedScroller";
 import DeviceScroll from "../components/DeviceScroller";
 import SignupForm from "../components/SignupForm";
@@ -8,10 +7,6 @@ import personphoneimg from "../assets/persononphone.jpg"
 import cityscape from "../assets/cityscape2.jpeg"
 
 function LandingPage() {
-    const navigate = useNavigate();
-    const handleLogin = () => {
-        navigate("/login");
-    };
 
     return (
         <div id="content">

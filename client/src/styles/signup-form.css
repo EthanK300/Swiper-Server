@@ -29,7 +29,6 @@ form {
 
 input {
     width: 50%;
-    margin-bottom: 2.5%;
     border: 2px solid #ccc;
     border-radius: 1rem;
     padding: 0.75rem;
@@ -52,4 +51,69 @@ input::placeholder {
 
 .error {
     color: red;
+    margin: 0;
+    margin-bottom: 2.5%;
+}
+
+button {
+    cursor: pointer;
+}
+
+.primary {
+    margin-top: 2.5%;
+    border-radius: 1rem;
+    width: 50%;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border: 2px solid magenta;
+    background: linear-gradient(125deg, #6A11CB, #2575FC)
+}
+
+.primary:hover {
+    background: linear-gradient(135deg, #5B0ECB, #1f65FF);
+}
+
+.primary:focus {
+    background: linear-gradient(135deg, #470c9f, #3172ff);
+    transform: translateY(2px);
+}
+
+.secondary {
+    margin-top: 2.5%;
+    border-radius: 1rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border: 2px solid #b0d6f9;
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+}
+
+.secondary:hover {
+    background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+}
+
+.secondary:focus {
+    transform: translateY(2px);
+    background: linear-gradient(135deg, #9cbfd0, #6b94d5);
+}
+
+#login-secondaries {
+    width: 50%;
+    text-align: center;
+}
+
+#dual-button {
+    display:flex;
+    gap: 1rem;
+}
+
+#to-register {
+    width: 50%;
+}
+
+#to-login {
+    padding: 1rem;
+}
+
+#login-guest {
+    width: 50%;
 }

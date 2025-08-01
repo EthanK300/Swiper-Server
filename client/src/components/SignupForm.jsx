@@ -50,14 +50,15 @@ function SignupForm() {
                         <input type="password" placeholder="eg: jeff999iscool" id="lpassword" {...registerLogin("password", { required: "Password is required"})}/>
                         {loginErrors.password && <p class="error">{loginErrors.password.message}</p>}
 
-                        <button type="submit">Login</button>
+                        <button type="submit" id="login-button" class="primary">Login</button>
                     </form>
-                    <p>
+                    <p id="login-secondaries">
                         Don't have an account?
-                        <br/>
-                        <button onClick={() => setRegister(true)}>Register</button>
-                        <button onClick={loginGuest}>Login as a guest</button>
                     </p>
+                    <div id="dual-button">
+                        <button onClick={() => setRegister(true)} class="secondary" id="to-register">Register</button>
+                        <button onClick={loginGuest} id="login-guest" class="secondary">Login as a guest</button>
+                    </div>
                 </div>
                 <div id="register" class="panel">
                     <h2>Register</h2>
@@ -80,13 +81,12 @@ function SignupForm() {
                         })}/>
                         {registerErrors.cpassword && <p class="error">{registerErrors.cpassword.message}</p>}
                         
-                        <button type="submit">Register</button>
+                        <button type="submit" id="register" class="primary">Register</button>
                     </form>
                     <p>
                         Already have an account?
-                        <br/>
-                        <button onClick={() => setRegister(false)}>Login</button>
                     </p>
+                    <button onClick={() => setRegister(false)} class="secondary" id="to-login">Login</button>
                 </div>
             </div>
         </div>
