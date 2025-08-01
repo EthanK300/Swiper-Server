@@ -49,3 +49,7 @@ input::placeholder {
     color: #aaa;
     font-style: italic;
 }
+
+.error {
+    color: red;
+}
