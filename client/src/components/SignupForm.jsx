@@ -2,13 +2,15 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
 import "../styles/signup-form.css";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm() {
-
+    const navigate = useNavigate();
     const [register, setRegister] = useState(false);
 
     const loginGuest = () => {
         console.log("log in as guest");
+        navigate("/main");
     };
 
     const {
@@ -42,7 +44,7 @@ function SignupForm() {
                 <div id="login" class="panel">  
                     <h2>Login</h2>
                     <form onSubmit={handleLoginSubmit(onLogin)} noValidate>
-                        <label for="lemail">Email/Username</label>
+                        <label for="lemail">Email</label>
                         <input type="email" placeholder="eg: jeff@gmail.com" id="lemail" {...registerLogin("email", { required: "Email is required"})}/>
                         {loginErrors.email && <p class="error">{loginErrors.email.message}</p>}
 
@@ -64,11 +66,11 @@ function SignupForm() {
                     <h2>Register</h2>
                     <form onSubmit={handleRegisterSubmit(onRegister)} noValidate>
                         <label for="rname">Name</label>
-                        <input type="text" placeholder="eg: Jeff" id="rname" {...registerRegister("name", { required: "Must have a name"})}/>
+                        <input type="text" placeholder="eg: Jeff" id="rname" {...registerRegister("name", { required: "You don't have a name?"})}/>
                         {registerErrors.name && <p class="error">{registerErrors.name.message}</p>}
 
                         <label for="remail">Email</label>
-                        <input type="email" placeholder="eg: jeff@gmail.com" id="remail" {...registerRegister("email", { pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email format"}})}/>
+                        <input type="email" placeholder="eg: jeff@gmail.com" id="remail" {...registerRegister("email", { required : "Email is required", pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email format"}})}/>
                         {registerErrors.email && <p class="error">{registerErrors.email.message}</p>}
                         
                         <label for="rpassword">Password</label>

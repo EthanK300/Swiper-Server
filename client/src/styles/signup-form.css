@@ -9,7 +9,6 @@
     width: 200%;
     display: flex;
     transition: 0.5s ease;
-
 }
 
 .panel {
@@ -65,16 +64,18 @@ button {
     width: 50%;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    border: 2px solid magenta;
-    background: linear-gradient(125deg, #6A11CB, #2575FC)
+    border: 2px solid #f5b198;
+    background: linear-gradient(125deg, #ffecd2, #fcb69f);
 }
 
 .primary:hover {
-    background: linear-gradient(135deg, #5B0ECB, #1f65FF);
+    background: linear-gradient(135deg, #fcb69f, #fa9372);
+    border: 2px solid #fa9372;
 }
 
 .primary:focus {
-    background: linear-gradient(135deg, #470c9f, #3172ff);
+    background: linear-gradient(135deg, #fa9372, #e06d52);
+    border: 2px solid #f5b198;
     transform: translateY(2px);
 }
 
@@ -89,6 +90,7 @@ button {
 
 .secondary:hover {
     background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+    border: 2px solid #92c1ee;
 }
 
 .secondary:focus {

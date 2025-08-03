@@ -5,20 +5,11 @@ const messages = [
     "Manage Tasks Effortlessly",
     "Smart Reminders",
     "Clean, Intuitive Design",
-    "Get Started Now",
+    "Natural Movements",
     "Stay Organized",
     "Boost Productivity",
     "Super Convenient",
 ];
-
-const range = 2;
-
-function withinBounds(index, activeIndex){
-    const direct = index - activeIndex;
-  const alt = direct > 0 ? direct - messages.length : direct + messages.length;
-  // Choose the smaller absolute distance
-  return Math.abs(direct) < Math.abs(alt) ? direct : alt;
-}
 
 function StackedScroll( { id, className } ) {
     // store active center card index
@@ -36,23 +27,6 @@ function StackedScroll( { id, className } ) {
 
     // calculate opacity for fading
     const getStyle = (index) => {
-        /*
-        const dist = withinBounds(index, activeIndex);
-        if (dist === 0) {
-            return { transform: 'scale(1)', opacity: 1, border: '2px solid blue' };
-        }
-        
-        if (Math.abs(dist) <= range) {
-            const translatePercent = dist * 150; // vertical offset in %
-            const scale = 1 - Math.abs(dist * 0.1);
-            const opacity = 1 - Math.abs(dist * 0.2);
-            return {
-                transform: `translateY(${translatePercent}%) scale(${scale * scale})`,
-                opacity: opacity,
-            };
-            // translateX(${Math.abs(dist) * 5}%) <- this is for shifting horizontally
-        }
-        */
         if (index === activeIndex) {
             return { transform: "translateY(0%)", opacity: 1, zIndex: 2 , border: '2px solid #6495ed'};
         } else if (index === (activeIndex + 1) % messages.length) {

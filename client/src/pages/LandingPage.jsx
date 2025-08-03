@@ -44,7 +44,8 @@ function LandingPage() {
                 <div class="right-left">
                     <p class="general" id="mission-text">
                         Our mission at the Swiper team is to build tools optimized for clarity, efficiency, and usability. 
-                        Even small conveniences we take seriously to ensure a smooth user experience. 
+                        Even small conveniences we take seriously to ensure a smooth user experience. Built with calm and
+                        refreshing colors, we aim to enhance and streamline your productivity.
                     </p>
                     <img src={cityscape} alt="city scape" class="popimg" id="city"/>
                 </div>
