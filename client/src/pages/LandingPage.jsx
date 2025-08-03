@@ -14,6 +14,14 @@ function LandingPage() {
                 <div id="left">
                     <div id="cta-circle">
                         <span id="cta-text">Supercharging your productivity.</span>
+                        <div id="encourage">
+                            <p id="encourage-text">Download the app!</p>
+                            <div id="button-row">
+                                <a href="/" target="_blank" class="download-button" id="android-button">Android</a>
+                                <a href="/" target="_blank" class="download-button" id="ios-button">iOS</a>
+                                {/* TODO: need to update these links with potential actual download links later */}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="right">

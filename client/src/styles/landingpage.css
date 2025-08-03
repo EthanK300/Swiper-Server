@@ -26,6 +26,8 @@
     border-radius: 50%;
     position: relative;
     display: flex;
+    flex-direction: column;
+    gap: 1rem;
     align-items: center;
     justify-content: center;
     top: -20%;
@@ -40,10 +42,46 @@
     font-weight: bold;
     text-align: center;
     width: 200px;
-    left: 500px;
     font-family: exo2;
     /* transform: translate(100px, 100px); */
-    transform: translateY(10vh);
+}
+
+#encourage {
+    text-align: center;
+}
+
+#encourage-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#button-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.download-button {
+    text-decoration: none;
+    display: inline-flex;
+    background-color: #fcb69f;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 2px solid #e59a7f;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.download-button:hover {
+    background-color: #fa9372;
+    transform: translateY(-2px);
+}
+
+.download-button:active {
+    background-color: #e06d52;
+    transform: translateY(0);
 }
 
 #right {

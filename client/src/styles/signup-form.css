@@ -66,6 +66,7 @@ button {
     padding-bottom: 0.25rem;
     border: 2px solid #f5b198;
     background: linear-gradient(125deg, #ffecd2, #fcb69f);
+    transition: transform 0.1s ease;
 }
 
 .primary:hover {
@@ -86,6 +87,7 @@ button {
     padding-bottom: 0.25rem;
     border: 2px solid #b0d6f9;
     background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    transition: transform 0.1s ease;
 }
 
 .secondary:hover {
