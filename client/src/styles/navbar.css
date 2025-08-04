@@ -80,6 +80,10 @@
     margin-left: 32px;
 }
 
+#user-status {
+    height: 100%;
+}
+
 #about-button {
     background: none;
     border: 1px solid var(--base);
@@ -93,6 +97,23 @@
 }
 
 #about-button:hover {
+    background: var(--base);
+    color: white;
+}
+
+#get-started {
+    background: none;
+    border: 1px solid var(--base);
+    cursor: pointer;
+    height: 60%;
+    align-self: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 8px;
+    color: var(--base);
+}
+
+#get-started:hover {
     background: var(--base);
     color: white;
 }

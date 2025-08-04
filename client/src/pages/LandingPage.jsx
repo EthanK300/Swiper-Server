@@ -1,13 +1,13 @@
 import StackedScroll from "../components/StackedScroller";
 import DeviceScroll from "../components/DeviceScroller";
 import SignupForm from "../components/SignupForm";
+
 import "../styles/landingpage.css";
 
 import personphoneimg from "../assets/persononphone.jpg"
 import cityscape from "../assets/cityscape2.jpeg"
 
 function LandingPage() {
-
     return (
         <div id="content">
             <div id="cta">

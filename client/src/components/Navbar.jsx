@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import swiperlogo from '../assets/swiperlogobetter.png';
 import blankprofile from '../assets/blank_profile.png';
 import { useAuth } from './AuthContext';
@@ -8,18 +8,8 @@ import '../styles/navbar.css'
 function Navbar() {
 
     const navigate = useNavigate();
-    
-    const { user, login, logout} = useAuth();
-
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
-
-    const handleLogin = (userdata) => {
-        login(userdata);
-        navigate('/swiper');
-    };
+    const { user, logout } = useAuth();
+    // TODO: make the logout function from the profile pic (need to create a dropdown too)
 
     const home = () => {
         navigate('/');
@@ -38,6 +28,14 @@ function Navbar() {
         console.log('profile clicked');
     }
 
+    const getstarted = () => {
+        const offset = window.innerHeight * 0.1;
+        const element = document.getElementById('sign-up');
+        const y = element.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: y, behavior: 'smooth'});
+        console.log("getting started");
+    }
+
     return (
         <nav id="navbar">
             <div id="nav-left">
@@ -48,9 +46,15 @@ function Navbar() {
             </div>
             <div id="nav-right">
                 <button id="about-button" onClick={about}>About</button>
-                <button id="profile-button" onClick={profile}>
-                    <img src={blankprofile} alt="Profile" id="profile-icon"/>
-                </button>
+                <div id="user-status">
+                    {user ? (
+                        <button id="profile-button" onClick={profile}>
+                            <img src={blankprofile} alt="Profile" id="profile-icon"/>
+                        </button>
+                    ) : (
+                        <button id="get-started" onClick={getstarted}>Get Started</button>
+                    )}
+                </div>
             </div>
         </nav>
     );

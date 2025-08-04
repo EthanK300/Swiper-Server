@@ -1,42 +1,63 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
-import "../styles/signup-form.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
+
+import "../styles/signup-form.css";
 
 function SignupForm() {
+    const login = useAuth();
     const navigate = useNavigate();
     const [register, setRegister] = useState(false);
-
-    const loginGuest = () => {
-        console.log("log in as guest");
-        navigate("/main");
-    };
-
+    
     const {
         register: registerLogin,
         handleSubmit: handleLoginSubmit,
         formState: { errors: loginErrors },
     } = useForm();
-
     const {
         register: registerRegister,
         handleSubmit: handleRegisterSubmit,
         watch: watchRegister,
         formState: { errors: registerErrors },
     } = useForm();
+    const password = watchRegister("password", "");
 
     const onLogin = (data) => {
+        // TODO: INTEGRATE LOGIN SEND API REQUEST TO SERVER AND HANDLE JWT TOKEN
         console.log("test login");
         console.log(data);
+        document.getElementById("login-button").blur();
+
+        /*
+        const data = await response.json();
+        if (data.token) {
+            login(data.token);
+        }
+        */
     };
 
     const onRegister = (data) => {
+        // TODO: INTEGRATE REGISTER SEND API REQUEST TO SERVER AND HANDLE JWT TOKEN
         console.log("test register");
         console.log(data);
+        document.getElementById("register-button").blur();
+
+        /*
+        const data = await response.json();
+        if (data.token) {
+            login(data.token);
+        }
+        */
     }
 
-    const password = watchRegister("password", "");
+    const loginGuest = () => {
+        console.log("log in as guest");
+        navigate("/");
+        document.getElementById("login-guest").blur();
+        // TODO: HANDLE LOGIN AS GUEST WITH JWT TOKEN BUT NO SERVER REQUEST ONLY LOCAL
+    };
 
     return(
         <div id="form-container">
@@ -83,7 +104,7 @@ function SignupForm() {
                         })}/>
                         {registerErrors.cpassword && <p class="error">{registerErrors.cpassword.message}</p>}
                         
-                        <button type="submit" id="register" class="primary">Register</button>
+                        <button type="submit" id="register-button" class="primary">Register</button>
                     </form>
                     <p>
                         Already have an account?
