@@ -3,8 +3,10 @@
 ## [1.0] - 8/5/25
 
 ### Added
+- Profile Menu dropdown for when a user is logged in
 
 ### Changed
+- Changed AuthContext to reflect usage of JWT tokens
 
 ### Fixed
 - Styling on the navbar profile & get started button to be center-lined
