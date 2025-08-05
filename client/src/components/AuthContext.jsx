@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) =>{
+export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -11,8 +11,8 @@ export const AuthProvider = ({ children }) =>{
         if (token) {
             try {
                 const decoded = jwtDecode(token);
-                const isExpred = decoded.eco * 1000 < Date.now();
-                if (isExpred) {
+                const isExpired = decoded.eco * 1000 < Date.now();
+                if (isExpired) {
                     logout();
                 }else{
                     setUser(decoded);

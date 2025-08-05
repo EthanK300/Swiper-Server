@@ -21,7 +21,7 @@
 
 #cta-circle {
     aspect-ratio: 1/1;
-    width: 100%;
+    width: 80%;
     background-color: #086788;
     border-radius: 50%;
     position: relative;
@@ -30,7 +30,7 @@
     align-items: center;
     justify-content: center;
     top: -20%;
-    left: -20%;
+    left: -10%;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     z-index: 999;
 }
@@ -42,7 +42,7 @@
     text-align: center;
     width: 200px;
     font-family: exo2;
-    /* transform: translate(100px, 100px); */
+    transform: translateY(50px);
 }
 
 #encourage {

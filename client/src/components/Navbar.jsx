@@ -1,15 +1,14 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import swiperlogo from '../assets/swiperlogobetter.png';
-import blankprofile from '../assets/blank_profile.png';
 import { useAuth } from './AuthContext';
+import ProfileMenu from './ProfileMenu';
 
 import '../styles/navbar.css'
 
 function Navbar() {
 
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
-    // TODO: make the logout function from the profile pic (need to create a dropdown too)
+    const { user } = useAuth();
 
     const home = () => {
         navigate('/');
@@ -22,10 +21,6 @@ function Navbar() {
         const y = element.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top: y, behavior: 'smooth'});
         console.log('navigating to about');
-    }
-
-    const profile = () => {
-        console.log('profile clicked');
     }
 
     const getstarted = () => {
@@ -47,13 +42,11 @@ function Navbar() {
             <div id="nav-right">
                 <button id="about-button" onClick={about}>About</button>
                 <div id="user-status">
-                    {user ? (
-                        <button id="profile-button" onClick={profile}>
-                            <img src={blankprofile} alt="Profile" id="profile-icon"/>
-                        </button>
-                    ) : (
+                    {/* {user ? ( */}
+                        <ProfileMenu/>
+                    {/* ) : (
                         <button id="get-started" onClick={getstarted}>Get Started</button>
-                    )}
+                    )} */}
                 </div>
             </div>
         </nav>
