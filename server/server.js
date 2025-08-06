@@ -26,8 +26,7 @@ run();
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
-const IP = process.env.IP || 'localhost';
-
+const IP = 'localhost';
 
 // static files from React
 app.use(express.static(path.join(__dirname, '../client/build/')));
@@ -35,6 +34,11 @@ app.use(express.static(path.join(__dirname, '../client/build/')));
 app.get('/', (req, res) => {
     console.log("sending react stuff");
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
+app.post('/login', (req, res) => {
+    console.log(req);
+    res.status(200).send("request received everything good here");
 });
 
 app.get('/request', (req, res) => {

@@ -4,6 +4,7 @@
 
 ### Added
 - Profile Menu dropdown for when a user is logged in
+- Test request for login
 
 ### Changed
 - Changed AuthContext to reflect usage of JWT tokens

@@ -74,7 +74,7 @@ button {
     border: 2px solid #fa9372;
 }
 
-.primary:focus {
+.primary:active {
     background: linear-gradient(135deg, #fa9372, #e06d52);
     border: 2px solid #f5b198;
     transform: translateY(2px);
@@ -95,7 +95,7 @@ button {
     border: 2px solid #92c1ee;
 }
 
-.secondary:focus {
+.secondary:active {
     transform: translateY(2px);
     background: linear-gradient(135deg, #9cbfd0, #6b94d5);
 }

@@ -2,14 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import axios from "axios";
 
 import "../styles/signup-form.css";
 
 function SignupForm() {
-    const login = useAuth();
     const navigate = useNavigate();
     const [register, setRegister] = useState(false);
+    const url = "localhost:8080"; // server website: https://swipersystems.com or http:localhost:3000
     
     const {
         register: registerLogin,
@@ -29,6 +29,21 @@ function SignupForm() {
         console.log("test login");
         console.log(data);
         document.getElementById("login-button").blur();
+
+        axios.post(url + "/login", {
+            /*
+            headers: {c
+                Authorization: `Bearer ${token}`
+            }
+            */
+            user: 'testuser',
+            password: 'testpassword',
+        }).then(res => {
+            console.log("response: " + res);
+        }).catch(err => {
+            console.log("Error occured trying to login: " + err);
+        });
+
 
         /*
         const data = await response.json();
