@@ -24,11 +24,12 @@ function SignupForm() {
     } = useForm();
     const password = watchRegister("password", "");
 
-    const onLogin = (data) => {
+    const URL = process.env.REACT_APP_BACKEND_URL;
+
+    const onLogin = async (data) => {
         // TODO: INTEGRATE LOGIN SEND API REQUEST TO SERVER AND HANDLE JWT TOKEN
         console.log("test login");
         console.log(data);
-        document.getElementById("login-button").blur();
 
         /*
         const data = await response.json();
@@ -36,21 +37,75 @@ function SignupForm() {
             login(data.token);
         }
         */
+
+        try {
+            console.log(`${URL}/api/login`);
+            const response = await fetch(`${URL}/api/login`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data),
+            });
+
+            const responseData = await response.json();
+
+            if(!response.ok){
+                console.error('login error:', responseData);
+                return;
+            }
+            
+            console.log('login good:', responseData);
+
+            // token
+            // if(responseData.token){
+            //     login(responseData.token);
+                // navigate('insert url');
+            // }
+        } catch (err) {
+            console.error('error:', err);
+        }
+
+        document.getElementById("login-button").blur();
     };
 
-    const onRegister = (data) => {
+    const onRegister = async (data) => {
         // TODO: INTEGRATE REGISTER SEND API REQUEST TO SERVER AND HANDLE JWT TOKEN
         console.log("test register");
         console.log(data);
-        document.getElementById("register-button").blur();
-
         /*
         const data = await response.json();
         if (data.token) {
             login(data.token);
         }
         */
-    }
+
+        try {
+            console.log(`${URL}/api/register`);
+            const response = await fetch(`${URL}/api/register`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data),
+            });
+
+            const responseData = await response.json();
+
+            if(!response.ok){
+                console.error('registration error:', responseData);
+                return;
+            }
+
+            console.log('registration good:', responseData);
+
+            // token
+            // if(responseData.token){
+            //     login(responseData.token);
+            //     navigate('insert url');
+            // }
+        } catch (err) {
+            console.error('error:', err);
+        }
+
+        document.getElementById("register-button").blur();
+    };
 
     const loginGuest = () => {
         console.log("log in as guest");
