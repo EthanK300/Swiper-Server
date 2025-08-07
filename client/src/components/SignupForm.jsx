@@ -1,16 +1,25 @@
 import React from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useAuth } from "./AuthContext";
 
 import "../styles/signup-form.css";
 
 function SignupForm() {
     const navigate = useNavigate();
     const [register, setRegister] = useState(false);
-    const url = "localhost:8080"; // server website: https://swipersystems.com or http:localhost:3000
+    const { login } = useAuth();
     
+    // at runtime determine what server we are
+    let URL = "";
+    if (process.env.REACT_APP_DEV === "true") {
+        URL = process.env.REACT_APP_IP + ":" + process.env.REACT_APP_PORT;
+    } else {
+        URL = process.env.REACT_APP_PUBLIC_IP;
+    }
+
     const {
         register: registerLogin,
         handleSubmit: handleLoginSubmit,
@@ -24,54 +33,78 @@ function SignupForm() {
     } = useForm();
     const password = watchRegister("password", "");
 
-    const onLogin = (data) => {
-        // TODO: INTEGRATE LOGIN SEND API REQUEST TO SERVER AND HANDLE JWT TOKEN
-        console.log("test login");
+    const onLogin = async (data) => {
+        // TODO: verify jwt token is handled correctly
+        console.log("logging in");
         console.log(data);
-        document.getElementById("login-button").blur();
 
-        axios.post(url + "/login", {
-            /*
-            headers: {c
-                Authorization: `Bearer ${token}`
+        try {
+            console.log("url: " + URL);
+            console.log(`${URL}/api/login`);
+            const response = await axios.post(`${URL}/api/login`, data, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const responseData = await response.data;
+
+            console.log("registration status: " + responseData);
+
+            // token handling
+            if(responseData.token){
+                login(responseData.token);
+                navigate("/dashboard");
             }
-            */
-            user: 'testuser',
-            password: 'testpassword',
-        }).then(res => {
-            console.log("response: " + res);
-        }).catch(err => {
-            console.log("Error occured trying to login: " + err);
-        });
-
-
-        /*
-        const data = await response.json();
-        if (data.token) {
-            login(data.token);
+        } catch (err) {
+            if (err.response) {
+                // server returned non-200 error
+                console.error('login error:', err.response.data);
+            } else {
+                // other error
+                console.error('error:', err);
+            }
         }
-        */
+
+        document.getElementById("login-button").blur();
     };
 
-    const onRegister = (data) => {
-        // TODO: INTEGRATE REGISTER SEND API REQUEST TO SERVER AND HANDLE JWT TOKEN
-        console.log("test register");
+    const onRegister = async (data) => {
+        // TODO: verify jwt token is handled correctly
+        console.log("registering");
         console.log(data);
-        document.getElementById("register-button").blur();
 
-        /*
-        const data = await response.json();
-        if (data.token) {
-            login(data.token);
+        try {
+            console.log(`${URL}/api/register`);
+            const response = await axios.post(`${URL}/api/register`, data, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const responseData = await response.data;
+
+            console.log("registration status: " + responseData);
+
+            // token handling
+            if(responseData.token){
+                login(responseData.token);
+                navigate("/dashboard");
+            }
+        } catch (err) {
+            if (err.response) {
+                // server returned non-200 error
+                console.error('login error:', err.response.data);
+            } else {
+                // other error
+                console.error('error:', err);
+            }
         }
-        */
-    }
+
+        document.getElementById("register-button").blur();
+    };
 
     const loginGuest = () => {
         console.log("log in as guest");
         navigate("/");
         document.getElementById("login-guest").blur();
-        // TODO: HANDLE LOGIN AS GUEST WITH JWT TOKEN BUT NO SERVER REQUEST ONLY LOCAL
+        // TODO: use local storage (?)
     };
 
     return(

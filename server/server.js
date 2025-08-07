@@ -1,12 +1,13 @@
-console.log("initializing");
-
 const express = require('express');
 const path = require('path');
 const app = express();
 const dotenv = require('dotenv');
-const {MongoClient} = require("mongodb");
+const { MongoClient } = require("mongodb");
 
-const uri = 'mongodb://localhost:27017'
+dotenv.config();
+app.use(express.json());
+
+const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 
 async function run() {
@@ -14,40 +15,53 @@ async function run() {
         await client.connect();
         const database = client.db('test');
         database == null ? console.log("null db") : console.log("good db");
+        return database;
     }catch(err){
         console.log("error" + err);
-    }finally{
-
     }
 }
 
-run();
+(async () => {
+    const db = await run();
 
-dotenv.config();
+    if(!db){
+        console.error('connection failed');
+        process.exit(1);
+    }else{
+        console.log('database connected');
+    }
 
-const PORT = process.env.PORT || 8000;
-const IP = 'localhost';
+    // create a unique index for emails
+    const users = db.collection('users');
+    try{
+        await users.createIndex({email: 1}, {unique: true});
+    } catch(err){
+        console.error('error creating unique index:', err);
+    }
 
-// static files from React
-app.use(express.static(path.join(__dirname, '../client/build/')));
+    // pass the api connections to router
+    const router = require('./router')(db);
+    app.use('/api', router);
 
-app.get('/', (req, res) => {
-    console.log("sending react stuff");
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
+    const PORT = process.env.PORT || 8000;
+    const IP = process.env.IP || 'localhost';
 
-app.post('/login', (req, res) => {
-    console.log(req);
-    res.status(200).send("request received everything good here");
-});
+    // static files from React
+    app.use(express.static(path.join(__dirname, '../client/build/')));
 
-app.get('/request', (req, res) => {
-    console.log("received a request");
-    res.status(200).json({
-        text: "some text",
+    app.get('/', (req, res) => {
+        console.log("sending react stuff");
+        res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
     });
-});
 
-app.listen(PORT, IP, () => {
-  console.log(`server is running at http://${IP}:${PORT}`);
+    app.listen(PORT, IP, () => {
+    console.log(`server is running at http://${IP}:${PORT}`);
+    });
+})();
+
+// close the connection when done
+process.on('SIGINT', async() => {
+    console.log('\nClosing connection...');
+    await client.close();
+    process.exit(0);
 });

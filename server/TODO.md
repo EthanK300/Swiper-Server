@@ -1,3 +1,4 @@
 # TODO
 
-- add database setup and api route handling for the client logins, data requests, etc
+- Attach token to response when logging in/registering
+- Sanitize, escape, prevent injections from user input

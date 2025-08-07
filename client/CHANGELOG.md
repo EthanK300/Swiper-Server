@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0] - 8/6/25
+
+### Changed
+- Using axios instead of fetch
+
+### Fixed
+- More convenient .env variable loading between prod/dev server
+
 ## [1.0] - 8/5/25
 
 ### Added

@@ -3,6 +3,15 @@
 ## [1.0] - 8/5/25
 
 ### Added
+- Routing for login/register
+- Attached MongoDB Atlas database
+
+### Changed
+- Request handling to grab from dotenv vars
+
+## [1.0] - 8/5/25
+
+### Added
 - test route for login
 
 ### Changed
