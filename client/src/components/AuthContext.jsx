@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
         if (token) {
             try {
                 const decoded = jwtDecode(token);
-                const isExpired = decoded.eco * 1000 < Date.now();
+                const isExpired = decoded.exp * 1000 < Date.now();
                 if (isExpired) {
                     logout();
                 }else{
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('jwt');
-        setUser(false);
+        setUser(null);
     };
 
     return (

@@ -1,7 +1,8 @@
 // user router
 
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); // for encryption
+const jwt = require('jsonwebtoken'); // for jwt tokens
 
 module.exports = function (db) {
     const router = express.Router();
@@ -33,7 +34,12 @@ module.exports = function (db) {
             // insert the new user into the db
             const result = await users.insertOne(newUser);
 
-            res.status(201).json({ message: 'user created', id: result.insertedId });
+            // generate token
+            const token = jwt.sign({userId: user._id, email: user.email}, 
+              process.env.JWT_SECRET, {expiresIn: '1h'});
+              console.log(token);
+
+            res.status(201).json({ message: 'user created', token: token });
         } catch (err) {
             if (err.code === 11000) {
                 res.status(400).json({ error: 'email already in use' });
@@ -63,12 +69,14 @@ module.exports = function (db) {
                 return res.status(401).json({ message: 'invalid credentials' });
             }
 
-            // token
-            // const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            // generate token
+            const token = jwt.sign({userId: user._id, email: user.email}, 
+              process.env.JWT_SECRET, {expiresIn: '1h'});
+              console.log(token);
 
-            res.status(200).json({ message: 'login successful' });
+            res.status(200).json({message: 'login successful', token: token});
         } catch (err) {
-            res.status(500).json({ error: 'error retrieving data' });
+            res.status(500).json({error: 'error retrieving data'});
         }
     });
 
