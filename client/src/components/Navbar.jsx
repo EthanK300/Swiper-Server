@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import swiperlogo from '../assets/swiperlogobetter.png';
 import { useAuth } from './AuthContext';
 import ProfileMenu from './ProfileMenu';
@@ -12,6 +12,8 @@ function Navbar() {
 
     const home = () => {
         navigate('/');
+        const element = document.getElementById('cta');
+        window.scrollTo({ top: element.getBoundingClientRect().top, behavior: 'smooth'});
         console.log('navigating to home');
     }
 

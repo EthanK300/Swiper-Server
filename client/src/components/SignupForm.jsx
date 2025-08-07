@@ -35,12 +35,7 @@ function SignupForm() {
 
     const onLogin = async (data) => {
         // TODO: verify jwt token is handled correctly
-        console.log("logging in");
-        console.log(data);
-
         try {
-            console.log("url: " + URL);
-            console.log(`${URL}/api/login`);
             const response = await axios.post(`${URL}/api/login`, data, {
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -57,7 +52,14 @@ function SignupForm() {
         } catch (err) {
             if (err.response) {
                 // server returned non-200 error
-                console.error('login error:', err.response.data);
+                if (err.response.status === 401) {
+                    // unathorized, or invalid user
+                    console.log('bad email / pwd');
+                    document.getElementById('login-return-error').innerHTML = "Invalid email or password";
+                    
+                } else {
+                    console.error('login error:', err.response.data);
+                }
             } else {
                 // other error
                 console.error('error:', err);
@@ -122,6 +124,7 @@ function SignupForm() {
                         {loginErrors.password && <p class="error">{loginErrors.password.message}</p>}
 
                         <button type="submit" id="login-button" class="primary">Login</button>
+                        <p class="error" id="login-return-error"></p>
                     </form>
                     <p id="login-secondaries">
                         Don't have an account?
@@ -153,6 +156,7 @@ function SignupForm() {
                         {registerErrors.cpassword && <p class="error">{registerErrors.cpassword.message}</p>}
                         
                         <button type="submit" id="register-button" class="primary">Register</button>
+                        <p class="error" id="register-return-error"></p>
                     </form>
                     <p>
                         Already have an account?
