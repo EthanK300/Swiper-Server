@@ -8,22 +8,22 @@ import LandingPage from "./pages/LandingPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-  return (
-    <AuthProvider>
+    return (
+        <AuthProvider>
         <Router>
-        <Navbar />
+            <Navbar />
 
-        <main style={{ paddingTop: 'calc(10vh + 32px)' }}>
+            <main style={{ paddingTop: "calc(10vh + 32px)" }}>
             <Routes>
-                <Route path="/" element={<LandingPage/>} />
-                <Route path="/dashboard" element={<Main/>} />
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/dashboard" element={<Main />} />
             </Routes>
-        </main>
+            </main>
 
-        <Footer />
+            <Footer />
         </Router>
-    </AuthProvider>
-  );
+        </AuthProvider>
+    );
 }
 
 export default App;

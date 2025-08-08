@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
                 if (isExpired) {
                     logout();
                 }else{
+                    console.log("token renewed");
                     setUser(decoded);
                 }
             } catch {

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0] - 8/7/25
+
+### Changed
+- Modifying validation, escaping & sanitize input
+
 ## [1.0] - 8/5/25
 
 ### Added

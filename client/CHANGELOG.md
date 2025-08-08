@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0] - 8/7/25
+
+### Fixed
+- Code formatting to be more consistent with spacing
+
 ## [1.0] - 8/6/25
 
 ### Changed
