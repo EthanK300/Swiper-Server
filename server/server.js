@@ -49,9 +49,17 @@ async function run() {
     // static files from React
     app.use(express.static(path.join(__dirname, '../client/build/')));
 
+    // landing page
     app.get('/', (req, res) => {
         console.log("sending react stuff");
         res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    });
+
+    // catch-all route
+    app.use((req, res) => {
+        const urlPath = path.join(__dirname, '../client/build', 'index.html');
+        console.log("sending catch-all in response to request: " + req.url);
+        res.sendFile(urlPath);
     });
 
     app.listen(PORT, IP, () => {

@@ -2,6 +2,10 @@
 
 ## [1.0] - 8/7/25
 
+### Added
+- Routing for data query, handle tokens
+- Added catch-all routing for outlier requests
+
 ### Changed
 - Modifying validation, escaping & sanitize input
 

@@ -101,5 +101,13 @@ module.exports = function (db) {
         }
     });
 
+    router.post('/data', (req, res) => {
+        console.log("dashboard queried");
+        if (req.body.token) {
+            console.log("found a token");
+        }
+        res.status(200).send("received /data request");
+    });
+
     return router;
 };

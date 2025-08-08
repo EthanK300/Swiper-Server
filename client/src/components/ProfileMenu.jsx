@@ -29,7 +29,7 @@ function ProfileMenu() {
     const handleLogout = () => {
         logout();
         setOpen(false);
-        navigate("/");
+        navigate('/');
         console.log("logged out");
     }
 

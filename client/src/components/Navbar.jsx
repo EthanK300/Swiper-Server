@@ -12,7 +12,7 @@ function Navbar() {
 
     const home = () => {
         navigate('/');
-        const element = document.getElementById('cta');
+        const element = document.getElementById('root');
         window.scrollTo({ top: element.getBoundingClientRect().top, behavior: 'smooth'});
         console.log('navigating to home');
     }

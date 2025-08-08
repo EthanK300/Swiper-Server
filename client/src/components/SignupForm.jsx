@@ -35,7 +35,7 @@ function SignupForm() {
 
     const onLogin = async (data) => {
         // TODO: verify jwt token is handled correctly
-        
+
         try {
             const response = await axios.post(`${URL}/api/login`, data, {
                 headers: { 'Content-Type': 'application/json' }
@@ -43,10 +43,11 @@ function SignupForm() {
 
             const responseData = await response.data;
 
-            console.log("registration status: " + responseData);
+            console.log("registration status: " + responseData.message);
 
             // token handling
             if(responseData.token){
+                console.log(responseData.token);
                 login(responseData.token);
                 navigate("/dashboard");
             }
@@ -80,7 +81,7 @@ function SignupForm() {
 
             const responseData = await response.data;
 
-            console.log("registration status: " + responseData);
+            console.log("registration status: " + responseData.message);
 
             // token handling
             if(responseData.token){

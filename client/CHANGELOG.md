@@ -2,8 +2,16 @@
 
 ## [1.0] - 8/7/25
 
+### Added
+- Dashboard works when navigated to via login
+
+### Changed
+- AuthContext to remove non-working navigates
+- Instances of Login/Logout AuthContext functions unified in intent
+
 ### Fixed
 - Code formatting to be more consistent with spacing
+- Navbar to correctly scroll to top when home image is clicked
 
 ## [1.0] - 8/6/25
 
