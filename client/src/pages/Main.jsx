@@ -4,6 +4,7 @@ import { useAuth } from "../components/AuthContext";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 
+import '../styles/main.css';
 
 function Main() {
     const { login, logout } = useAuth();
@@ -73,11 +74,24 @@ function Main() {
     useEffect(() => {
 
         fetchData();
+        // TODO: uncomment this when committing
 
     }, []);
 
+    return(
+        <div id="main">
+            <h1>test</h1>
+            <div id="left">
 
-    return <h1>Main page coming soon!</h1>;
+            </div>
+            <div id="tasklist-main">
+
+            </div>
+            <div id="bottom">
+
+            </div>
+        </div>
+    );
 }
 
 export default Main;
