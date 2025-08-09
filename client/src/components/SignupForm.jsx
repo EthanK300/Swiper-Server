@@ -30,6 +30,7 @@ function SignupForm() {
         handleSubmit: handleRegisterSubmit,
         watch: watchRegister,
         formState: { errors: registerErrors },
+        setError,
     } = useForm();
     const password = watchRegister("password", "");
 
@@ -52,19 +53,13 @@ function SignupForm() {
                 navigate("/dashboard");
             }
         } catch (err) {
-            if (err.response) {
-                // server returned non-200 error
-                if (err.response.status === 401) {
-                    // unathorized, or invalid user
-                    console.log('bad email / pwd');
-                    document.getElementById('login-return-error').innerHTML = "Invalid email or password";
-                    
-                } else {
-                    console.error('login error:', err.response.data);
-                }
+            const errMsg = err.response?.data?.message || err.response?.data?.error;
+
+            if(errMsg){
+                document.getElementById('login-return-error').textContent = errMsg;
             } else {
-                // other error
-                console.error('error:', err);
+                // fall back msg
+                document.getElementById('login-return-error').textContent = 'Login failed. Please try again.';
             }
         }
 
@@ -89,12 +84,15 @@ function SignupForm() {
                 navigate("/dashboard");
             }
         } catch (err) {
-            if (err.response) {
-                // server returned non-200 error
-                console.error('login error:', err.response.data);
-            } else {
-                // other error
-                console.error('error:', err);
+            console.error('Register error:', err.response?.data || err.message);
+            if(err.response?.data?.errors){
+                // check for backend validation errors
+                err.response.data.errors.forEach((error) => {
+                    setError(error.path, {type: 'server', message: error.msg});
+                });
+            } else if(err.response?.data?.error){
+                // check for other errors
+                setError('email', {type: 'server', message: err.response.data.error});
             }
         }
 

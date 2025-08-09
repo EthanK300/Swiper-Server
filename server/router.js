@@ -4,6 +4,7 @@ const express = require('express');
 const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcrypt'); // for encryption
 const jwt = require('jsonwebtoken'); // for jwt tokens
+const rateLimit = require('express-rate-limit'); // for limiting login attempts
 
 module.exports = function (db) {
     const router = express.Router();
@@ -12,9 +13,11 @@ module.exports = function (db) {
     // POST route for registering
     router.post('/register', 
       // validate and sanitize user inputs
-      body('name').trim().escape().notEmpty().withMessage('Name is required'),
+      body('name').trim().escape().notEmpty().withMessage('Name is required')
+                  .matches(/^[a-zA-Z\s\-']+$/).withMessage('Name contains invalid characters'),
       body('email').trim().isEmail().normalizeEmail().withMessage('Invalid email'),
       body('password').notEmpty().withMessage('Password is required')
+                      .isLength({min: 8}).withMessage('Password must be at least 8 characters long')
                       .isString().withMessage('Password must be a string'),
       body('cpassword').custom((value, {req}) => {
         if(value !== req.body.password){
@@ -57,8 +60,15 @@ module.exports = function (db) {
         }
     });
 
+    // rate limiter for login attempts
+    const loginLimiter = rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 min
+      max: 3, // limits to 3 attempts
+      message: 'Too many login attempts. Please try again in 15 minutes.'
+    });
+
     // POST route for logging in
-    router.post('/login', 
+    router.post('/login', loginLimiter,
       // validate user inputs
       body('email').isEmail().withMessage('Invalid email'),
       body('password').notEmpty().withMessage('Password is required')
@@ -73,7 +83,8 @@ module.exports = function (db) {
         console.log(req.body);
 
         // separate components
-        const { email, password } = req.body;
+        const email = req.body.email.toLowerCase(); // normalize the email
+        const password = req.body.password;
 
         try {
             // find the user
