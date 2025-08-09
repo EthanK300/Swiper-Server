@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0] - 8/8/25
+
+### Added
+- Validation, escape, sanitize input
+
 ## [1.0] - 8/7/25
 
 ### Added

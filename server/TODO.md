@@ -1,5 +1,6 @@
 # TODO
 
+- Set up storage method for each user's data
+    - Contains tasks which has name, description, due date/time, importance
 - Test dashboard auto-login from landingpage
-- Sanitize, escape, prevent injections from user input
 - Test for handling on mobile

@@ -45,20 +45,21 @@ function Main() {
             return;
         }
 
-        console.log("got to the dashboard");
-
         const data = {
             testKey: "testValue"
         }
         try {
-            const response = axios.post(`${URL}/api/data`, data, {
+            const response = await axios.post(`${URL}/api/data`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
                 }
             });
 
+            // TODO: do stuff with the response data
+
             console.log("response: " + response.data);
+            console.log(response);
 
         } catch (err) {
             if (err.response) {

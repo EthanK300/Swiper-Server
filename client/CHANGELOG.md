@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0] - 8/8/25
+
+### Changed
+- Random signup form fixes
+
 ## [1.0] - 8/7/25
 
 ### Added
