@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuth } from "../components/AuthContext";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 
+import FilterMenu from "../components/FilterMenu";
 import '../styles/main.css';
 
 function Main() {
@@ -74,16 +75,17 @@ function Main() {
 
     useEffect(() => {
 
-        fetchData();
+        // fetchData();
         // TODO: uncomment this when committing
 
     }, []);
 
+
+
     return(
         <div id="main">
-            <h1>test</h1>
-            <div id="left">
-
+            <div id="top-bar">
+                <FilterMenu/>
             </div>
             <div id="tasklist-main">
 

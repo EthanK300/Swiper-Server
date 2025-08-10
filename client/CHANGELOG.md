@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0] - 8/9/25
+
+### Added
+- Attempt to read token to auto-forward to dashboard if signed in
+- Filter bar on main page, styling
+
 ## [1.0] - 8/8/25
 
 ### Changed

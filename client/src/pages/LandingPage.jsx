@@ -1,6 +1,9 @@
-import StackedScroll from "../components/StackedScroller";
 import DeviceScroll from "../components/DeviceScroller";
 import SignupForm from "../components/SignupForm";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
+import { useAuth } from "../components/AuthContext";
+import { useEffect } from 'react';
 
 import "../styles/landingpage.css";
 
@@ -8,6 +11,33 @@ import personphoneimg from "../assets/persononphone.jpg"
 import cityscape from "../assets/cityscape2.jpeg"
 
 function LandingPage() {
+    const token = localStorage.getItem('jwt');
+    const navigate = useNavigate();
+    const { login, logout } = useAuth();
+
+    useEffect(() => {
+        if (token) {
+            try {
+                const decoded = jwtDecode(token);
+                const isExpired = decoded.exp * 1000 < Date.now();
+                if (isExpired) {
+                    console.log("EXPIRED TOKEN! KICKED BACK TO LANDING PAGE");
+                    logout();
+                }else{
+                    console.log("token renewed on dashboard");
+                    login(token);
+                    navigate('/dashboard');
+                }
+            } catch {
+                console.log("ERROR HANDLING TOKEN");
+                logout();
+            }
+        } else {
+            console.log("NO TOKEN! KICKED BACK TO LANDING PAGE");
+            logout();
+        }
+    }, []);
+
     return (
         <div id="content">
             <div id="cta">
