@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from "../components/AuthContext";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import '../styles/main.css';
 function Main() {
     const { login, logout } = useAuth();
     const navigate = useNavigate();
+    const [active, setActive] = useState("Today");
 
     let URL = "";
     if (process.env.REACT_APP_DEV === "true") {
@@ -75,7 +76,7 @@ function Main() {
 
     useEffect(() => {
 
-        // fetchData();
+        fetchData();
         // TODO: uncomment this when committing
 
     }, []);
@@ -84,14 +85,15 @@ function Main() {
 
     return(
         <div id="main">
+            <h1>{active}</h1>
             <div id="top-bar">
-                <FilterMenu/>
+                <FilterMenu activeFilter={active} setFilter={setActive}/>
             </div>
             <div id="tasklist-main">
 
             </div>
             <div id="bottom">
-
+                
             </div>
         </div>
     );

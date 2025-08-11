@@ -16,17 +16,24 @@
     border: 1px solid black;
     background: var(--color-secondary);
     margin-top: 25px;
+    position: relative;
+}
+
+#sliding-highlight {
+    position: absolute;
+    background: green;
+    height: 100%;
+    z-index: 1;
+    border-radius: 100px;
+    transition: 0.5s all ease;
 }
 
 .top-menu-button {
-    background: var(--color-secondary);
+    background: transparent;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     border-radius:100px;
     border: none;
     transition: all 0.25s ease;
-}
-
-.active-button {
-    background: var(--color-active);
+    z-index: 2;
 }

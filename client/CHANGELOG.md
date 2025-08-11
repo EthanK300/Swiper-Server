@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0] - 8/10/25
+
+### Added
+- FilterMenu, sends updates back to the main page for other handling
+
 ## [1.0] - 8/9/25
 
 ### Added
