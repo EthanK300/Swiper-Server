@@ -1,6 +1,7 @@
 :root {
-    --color-active: red;
-    --color-secondary: blue;
+    --color-active: cyan;
+    --color-secondary: #1355b7;
+    --default-transition: 0.2s ease;
 }
 
 #button-group {
@@ -21,7 +22,7 @@
 
 #sliding-highlight {
     position: absolute;
-    background: green;
+    background: var(--color-active);
     height: 100%;
     z-index: 1;
     border-radius: 100px;
@@ -34,6 +35,17 @@
     padding-bottom: 0.75rem;
     border-radius:100px;
     border: none;
-    transition: all 0.25s ease;
+    transition: font-size 0s;
+    transition:
+        color var(--default-transition),
+        background-color var(--default-transition),
+        transform var(--default-transition),
+        font-size 0s ease,
+        font-weight 0s ease;
     z-index: 2;
+}
+
+#active-button {
+    font-weight: bold;
+    font-size: 110%;
 }

@@ -77,15 +77,36 @@ function Main() {
     useEffect(() => {
 
         fetchData();
-        // TODO: uncomment this when committing
+        // TODO: uncomment this when committing, comment this when testing /dashboard frontend
 
     }, []);
 
+    const openAddMenu = () => {
+        const element = document.getElementById('add-bar');
+        element.innerHTML = "Add";
+        element.blur();
 
+        const handleKeypress = (event) => {
+            console.log("keypress: " + event.key);
+    
+            if (event.key === "Enter") {
+                document.getElementById('add-bar').innerHTML = "+";
+                window.removeEventListener("keydown", handleKeypress);
+                // TODO: exit and add task to db
+    
+            } else if (event.key === "Escape") {
+                document.getElementById('add-bar').innerHTML = "+";
+                window.removeEventListener("keydown", handleKeypress);
+                // TODO: exit and cancel
+    
+            }
+        };
+
+        window.addEventListener("keydown", handleKeypress);
+    }
 
     return(
         <div id="main">
-            <h1>{active}</h1>
             <div id="top-bar">
                 <FilterMenu activeFilter={active} setFilter={setActive}/>
             </div>
@@ -93,7 +114,7 @@ function Main() {
 
             </div>
             <div id="bottom">
-                
+                <div id="add-bar" onClick={openAddMenu}>+</div>
             </div>
         </div>
     );

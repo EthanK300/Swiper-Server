@@ -15,12 +15,16 @@ function App() {
 
             <main style={{ paddingTop: "calc(10vh + 32px)" }}>
             <Routes>
-                <Route path="/" element={<LandingPage />} />
+                <Route path="/" element={
+                    <>
+                        <LandingPage />
+                        <Footer />
+                    </>
+            } />
                 <Route path="/dashboard" element={<Main />} />
             </Routes>
             </main>
 
-            <Footer />
         </Router>
         </AuthProvider>
     );

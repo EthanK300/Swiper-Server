@@ -11,5 +11,29 @@
 }
 
 #bottom {
-    
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#add-bar {
+    position: absolute;
+    width: 60%;
+    top: 90%;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-radius: 100px;
+    background: red;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    border: 1px solid black;
+    text-align: center;
+}
+
+#add-bar:hover {
+    transform: translateY(-2px);
+}
+
+#add-bar:active {
+    transform: translateY(2px);
 }
