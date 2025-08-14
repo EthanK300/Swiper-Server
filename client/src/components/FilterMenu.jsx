@@ -12,15 +12,13 @@ function FilterMenu({ activeFilter, setFilter }) {
 
     useEffect(() => {
         // when the active filter changes, this runs
-        console.log("changed");
+        // console.log("changed");
         const activeButton = containerRef.current.querySelector('#active-button');
         if (activeButton) {
-            console.log(activeButton + "\n" + activeButton.offsetLeft);
+            // console.log(activeButton + "\n" + activeButton.offsetLeft);
             setButtonStyle({
                 left: activeButton.offsetLeft + "px",
             });
-        }else{
-            console.log("didnt change");
         }
     }, [activeFilter]);
 

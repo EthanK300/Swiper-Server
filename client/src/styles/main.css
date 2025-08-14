@@ -24,16 +24,19 @@
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     border-radius: 100px;
-    background: red;
+    background: linear-gradient(135deg, aqua, rgb(64, 91, 160));
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-    border: 1px solid black;
+    border: 1px solid gray;
     text-align: center;
 }
 
 #add-bar:hover {
     transform: translateY(-2px);
+    background: linear-gradient(135deg, rgb(0, 231, 231), rgb(48, 73, 134));
+
 }
 
 #add-bar:active {
     transform: translateY(2px);
+    background: linear-gradient(135deg, rgb(0, 203, 203), rgb(37, 60, 118));
 }

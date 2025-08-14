@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAuth } from "../components/AuthContext";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
@@ -76,33 +76,59 @@ function Main() {
 
     useEffect(() => {
 
-        fetchData();
+        // fetchData();
         // TODO: uncomment this when committing, comment this when testing /dashboard frontend
 
     }, []);
 
-    const openAddMenu = () => {
-        const element = document.getElementById('add-bar');
-        element.innerHTML = "Add";
-        element.blur();
+    const [open, setOpen] = useState(false);    // false is not open, true is open
+    const handlerRef = useRef(null);
 
-        const handleKeypress = (event) => {
-            console.log("keypress: " + event.key);
-    
-            if (event.key === "Enter") {
-                document.getElementById('add-bar').innerHTML = "+";
-                window.removeEventListener("keydown", handleKeypress);
-                // TODO: exit and add task to db
-    
-            } else if (event.key === "Escape") {
-                document.getElementById('add-bar').innerHTML = "+";
-                window.removeEventListener("keydown", handleKeypress);
-                // TODO: exit and cancel
-    
-            }
-        };
+    const resetAddMenu = () => {
+        console.log("reset called: " + handlerRef.current);
+        document.getElementById('add-bar').innerHTML = "+";
+        window.removeEventListener("keydown", handlerRef.current);
+        setOpen(false);
+        handlerRef.current = null;
+    }
 
-        window.addEventListener("keydown", handleKeypress);
+    const addTask = () => {
+        // TODO: make this submit and add the task (need to make the actual task stuff first)
+        console.log("addTask called");
+    }
+
+    const addClickHandler = () => {
+        if (!open) {
+            // open the add menu
+            setOpen(true);
+            const element = document.getElementById('add-bar');
+            element.innerHTML = "Add";
+            element.blur();
+
+            const handleKeypress = (event) => {
+                console.log("keypress: " + event.key);
+        
+                if (event.key === "Enter") {
+                    resetAddMenu();
+                    addTask();
+                    // TODO: exit and add task to db
+        
+                } else if (event.key === "Escape") {
+                    resetAddMenu();
+
+                    // TODO: exit and cancel
+                    
+                }
+            };
+            handlerRef.current = handleKeypress;
+            window.addEventListener("keydown", handleKeypress);
+
+        } else {
+            // add clicked
+            console.log("actual add button clicked");
+            addTask();
+            resetAddMenu();
+        }
     }
 
     return(
@@ -114,7 +140,7 @@ function Main() {
 
             </div>
             <div id="bottom">
-                <div id="add-bar" onClick={openAddMenu}>+</div>
+                <div id="add-bar" onClick={addClickHandler}>+</div>
             </div>
         </div>
     );

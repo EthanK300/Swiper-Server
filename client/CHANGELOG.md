@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0] - 8/13/25
+
+### Added
+- Main page add task button
+- Esc & Enter controls for the add
+
+### Changed
+- Color scheme on the add bar
+- Behavior of keypress/mouse on add bar
+
+### Fixed
+- Landing page image way too big
+
 ## [1.0] - 8/10/25
 
 ### Added
