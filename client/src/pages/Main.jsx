@@ -74,12 +74,32 @@ function Main() {
         }
     }
 
-    useEffect(() => {
+    const [middle, setMiddle] = useState(0);
+    const topbar = useRef(null);
+    const tasklistmain = useRef(null);
+    const bottom = useRef(null);
 
+    useEffect(() => {
+        updateMiddleHeight();
+        window.addEventListener('resize', updateMiddleHeight);
+        
         // fetchData();
         // TODO: uncomment this when committing, comment this when testing /dashboard frontend
 
+        return () => {
+            window.removeEventListener("resize", updateMiddleHeight);
+        }
     }, []);
+
+    const updateMiddleHeight = () => {
+        if (topbar.current && bottom.current) {
+
+        }
+        const ty = topbar.current.getBoundingClientRect().bottom;
+        const by = bottom.current.getBoundingClientRect().top;
+        setMiddle(by - ty);
+        
+    }
 
     const [open, setOpen] = useState(false);    // false is not open, true is open
     const handlerRef = useRef(null);
@@ -90,11 +110,6 @@ function Main() {
         window.removeEventListener("keydown", handlerRef.current);
         setOpen(false);
         handlerRef.current = null;
-    }
-
-    const addTask = () => {
-        // TODO: make this submit and add the task (need to make the actual task stuff first)
-        console.log("addTask called");
     }
 
     const addClickHandler = () => {
@@ -131,16 +146,42 @@ function Main() {
         }
     }
 
+    const addTask = () => {
+        // TODO: make this submit and add the task (need to make the actual task stuff first)
+        console.log("addTask called");
+    }
+
+    const completeTask = () => {
+        console.log("complete clicked");
+    }
+
+    const delayTask = () => {
+        console.log("delay clicked");
+    }
+
     return(
         <div id="main">
-            <div id="top-bar">
+            <div id="top-bar" ref={topbar}>
                 <FilterMenu activeFilter={active} setFilter={setActive}/>
             </div>
-            <div id="tasklist-main">
+            <div id="tasklist-main" ref={tasklistmain} style={{ height: `${middle}px` }}>
+                <div id="main-left" className="side-buttons">
+                    <svg id="complete-button" viewBox="0 0 106.6 100" onClick={completeTask}>
+                        <polygon points="0,50 66.6,0 106.6,0 106.6, 100 66.6,100" fill="green" className="arrow"/>
+                    </svg>
+                </div>
+                <div id="main-middle">
 
+                </div>
+                <div id="main-right" className="side-buttons">
+                    <svg id="delay-button" viewBox="0 0 106.6 100" onClick={delayTask}>
+                        {/* <polygon points="0,0 86.6,50 0,100" fill="red" className="arrow"/> */}
+                        <polygon points="0,0 40,0 106.6,50 40,100 0,100" fill="red" className="arrow"/>
+                    </svg>
+                </div>
             </div>
             <div id="bottom">
-                <div id="add-bar" onClick={addClickHandler}>+</div>
+                <div id="add-bar" ref={bottom} onClick={addClickHandler}>+</div>
             </div>
         </div>
     );

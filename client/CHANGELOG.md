@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0] - 8/14/25
+
+### Added
+- Side buttons for complete and delay defaults
+- SVG graphics for non-squarish/ellipsish elements?
+
+### Changed
+- Made filter font bigger and more readable for selected filter
+
 ## [1.0] - 8/13/25
 
 ### Added
