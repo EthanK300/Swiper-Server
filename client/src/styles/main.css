@@ -56,6 +56,10 @@
 
 #main-middle {
     width: var(--main-task-size);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #main-left {

@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 
 import FilterMenu from "../components/FilterMenu";
+import Tasklist from "../components/Tasklist";
 import '../styles/main.css';
 
 function Main() {
@@ -171,11 +172,10 @@ function Main() {
                     </svg>
                 </div>
                 <div id="main-middle">
-
+                    <Tasklist/>
                 </div>
                 <div id="main-right" className="side-buttons">
                     <svg id="delay-button" viewBox="0 0 106.6 100" onClick={delayTask}>
-                        {/* <polygon points="0,0 86.6,50 0,100" fill="red" className="arrow"/> */}
                         <polygon points="0,0 40,0 106.6,50 40,100 0,100" fill="red" className="arrow"/>
                     </svg>
                 </div>
