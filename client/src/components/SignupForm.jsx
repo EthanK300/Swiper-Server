@@ -39,7 +39,8 @@ function SignupForm() {
 
         try {
             const response = await axios.post(`${URL}/api/login`, data, {
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
             });
 
             const responseData = await response.data;
@@ -47,9 +48,9 @@ function SignupForm() {
             console.log("registration status: " + responseData.message);
 
             // token handling
-            if(responseData.token){
-                console.log(responseData.token);
-                login(responseData.token);
+            if(responseData.accessToken){
+                console.log(responseData.accessToken);
+                login(responseData.accessToken);
                 navigate("/dashboard");
             }
         } catch (err) {
@@ -71,7 +72,8 @@ function SignupForm() {
 
         try {
             const response = await axios.post(`${URL}/api/register`, data, {
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
             });
 
             const responseData = await response.data;
@@ -79,8 +81,8 @@ function SignupForm() {
             console.log("registration status: " + responseData.message);
 
             // token handling
-            if(responseData.token){
-                login(responseData.token);
+            if(responseData.accessToken){
+                login(responseData.accessToken);
                 navigate("/dashboard");
             }
         } catch (err) {

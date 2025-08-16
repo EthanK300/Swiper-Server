@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -30,7 +31,21 @@ export const AuthProvider = ({ children }) => {
         setUser(decoded);
     };
 
-    const logout = () => {
+    const logout = async () => {
+        try{
+            const baseURL = process.env.REACT_APP_DEV === "true"
+            ? `${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}`
+            : process.env.REACT_APP_PUBLIC_IP;
+
+            const res = await axios.post(`${baseURL}/api/logout`, {}, {
+                withCredentials: true,
+            });
+            
+            console.log("Logout response:", res.status);
+        } catch (err) {
+            console.error("Failed to logout from server:", err);
+        }
+
         localStorage.removeItem('jwt');
         setUser(null);
     };
