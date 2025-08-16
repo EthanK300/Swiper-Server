@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0] - 8/15/25
+
+### Added
+- Main tasklist (needs to be finished)
+
 ## [1.0] - 8/14/25
 
 ### Added

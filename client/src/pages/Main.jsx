@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from 'react';
+import { FixedSizeList as List } from 'react-window';
 import { useAuth } from "../components/AuthContext";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 
 import FilterMenu from "../components/FilterMenu";
-import Tasklist from "../components/Tasklist";
 import '../styles/main.css';
 
 function Main() {
@@ -84,7 +84,7 @@ function Main() {
         updateMiddleHeight();
         window.addEventListener('resize', updateMiddleHeight);
         
-        // fetchData();
+        fetchData();
         // TODO: uncomment this when committing, comment this when testing /dashboard frontend
 
         return () => {
@@ -160,6 +160,14 @@ function Main() {
         console.log("delay clicked");
     }
 
+    let tasks = [
+        { title: "task 1", desc: "task 1 description", dueDate: 100001010101 },
+        { title: "task 2", desc: "task 2 description", dueDate: 388498324598 },
+        { title: "task 3", desc: "task 3 description", dueDate: 2092468324598 },
+        { title: "task 4", desc: "task 4 description", dueDate: 396488324598 },
+        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
+    ];
+
     return(
         <div id="main">
             <div id="top-bar" ref={topbar}>
@@ -172,7 +180,34 @@ function Main() {
                     </svg>
                 </div>
                 <div id="main-middle">
-                    <Tasklist/>
+                    {/* <div id="task-container">
+                        {tasks.map((task, index) => {
+                            let time = (new Date(task.dueDate)).toDateString();
+                            
+                            return(
+                                <div className="task-card">{task.title + " " + task.desc + " " + time}</div>
+                            );
+
+                        })}
+                    </div> */}
+                    <List
+                        className="task-container"
+                        height={middle * 0.9}
+                        width="100%"
+                        itemCount={tasks.length}
+                        itemSize={(middle * 0.9) * 0.15}
+                    >
+                        {({ index, style }) => {
+                            let task = tasks[index];
+                            let time = (new Date(task.dueDate)).toDateString();
+
+                            return(
+                                <div className="task-card">
+                                    {task.title + " " + task.desc + " " + time}
+                                </div>
+                            );
+                        }}
+                    </List>
                 </div>
                 <div id="main-right" className="side-buttons">
                     <svg id="delay-button" viewBox="0 0 106.6 100" onClick={delayTask}>
