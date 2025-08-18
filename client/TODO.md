@@ -1,6 +1,5 @@
 # TODO
 
-- Finish main page main task stuff
 - Create form/ui elements for the add task via web
 - Edit navbar so that the about element checks for on home page if not navigates there first
 - Go through main .jsx files and look for onclick={function()} and replace with onClick={function}

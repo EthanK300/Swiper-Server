@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0] - 8/17/25
+
+### Changed
+- Use cookies instead of local storage for JWT tokens
+
+### Fixed
+- Minor user input sanitization
+
 ## [1.0] - 8/8/25
 
 ### Added

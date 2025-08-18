@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0] - 8/17/25
+
+### Added
+- Main tasklist pretty much done (modify styling/colors to desire), need to get add task form/retrieve from database connection working
+- Changed from local storage JWT to cookies
+
 ## [1.0] - 8/15/25
 
 ### Added
