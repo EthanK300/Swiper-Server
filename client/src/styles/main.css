@@ -62,19 +62,35 @@
     align-items: center;
 }
 
-.task-container {
+#task-container {
     border-radius: 1rem;
     background-color: navajowhite;
     border: 1px solid black;
     margin: 5%;
+    width: 90%;
+    height: 90%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    scrollbar-width: none; /* remove the scrollbar for firefox */
+}
+
+#task-container::-webkit-scrollbar {
+    display: none; /* same for chrome and safari */
 }
 
 .task-card {
-    height: 15%;
+    width: 90%;
+    /* height: 15%; */
+    flex: 0 0 15%;
     background: lightblue;
 }
+
+.active-card {
+    background: cornflowerblue;
+}
+
 
 #main-left {
     display: flex;
