@@ -5,10 +5,31 @@ const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcrypt'); // for encryption
 const jwt = require('jsonwebtoken'); // for jwt tokens
 const rateLimit = require('express-rate-limit'); // for limiting login attempts
+const {ObjectId} = require('mongodb'); // mongo stores _ids as objects
+
+// is this production?
+const isProduction = process.env.NODE_ENV === 'production';
+console.log('isProduction', isProduction);
+
+const refreshCookieOptions = {
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: 'strict',
+  path: '/',
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+}
+
+const clearCookieOptions = {
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: 'strict',
+  path: '/',
+};
 
 module.exports = function (db) {
     const router = express.Router();
     const users = db.collection('users');
+    users.createIndex({email: 1}, {unique: true}); // make sure all emails are unique
 
     // POST route for registering
     router.post('/register', 
@@ -16,10 +37,10 @@ module.exports = function (db) {
       body('name').trim().escape().notEmpty().withMessage('Name is required')
                   .matches(/^[a-zA-Z\s\-']+$/).withMessage('Name contains invalid characters'),
       body('email').trim().isEmail().normalizeEmail().withMessage('Invalid email'),
-      body('password').notEmpty().withMessage('Password is required')
+      body('password').trim().notEmpty().withMessage('Password is required')
                       .isLength({min: 8}).withMessage('Password must be at least 8 characters long')
                       .isString().withMessage('Password must be a string'),
-      body('cpassword').custom((value, {req}) => {
+      body('cpassword').trim().custom((value, {req}) => {
         if(value !== req.body.password){
           throw new Error('Passwords do not match');
         }
@@ -37,6 +58,12 @@ module.exports = function (db) {
         // separate the components
         const {name, email, password} = req.body;
 
+        // check if this email is already in use
+        const existingUser = await users.findOne({email});
+        if(existingUser){
+          return res.status(400).json({error: 'email already in use'});
+        }
+
         try {
             // hash the password
             const hashedPW = await bcrypt.hash(password, 10);
@@ -44,19 +71,21 @@ module.exports = function (db) {
 
             // insert the new user into the db
             const result = await users.insertOne(newUser);
+            newUser._id = result.insertedId;
 
             // generate token
-            const token = jwt.sign({userId: newUser._id, email: newUser.email}, 
+            const accessToken = jwt.sign({userId: newUser._id, email: newUser.email}, 
               process.env.JWT_SECRET, {expiresIn: '1h'});
-              console.log(token);
+            const refreshToken = jwt.sign({userId: newUser._id}, process.env.JWT_REFRESH);
+            const hashedToken = await bcrypt.hash(refreshToken, 10);
 
-            res.status(201).json({ message: 'user created', token: token });
+            await users.updateOne({_id: newUser._id}, {$set: {refreshToken: hashedToken}});
+            res.cookie('refreshToken', refreshToken, refreshCookieOptions);
+
+            res.status(201).json({ message: 'user created', accessToken: accessToken});
         } catch (err) {
-            if (err.code === 11000) {
-                res.status(400).json({ error: 'email already in use' });
-            } else {
-                res.status(500).json({ error: 'error saving data' });
-            }
+            console.error(err);
+            res.status(500).json({ error: 'error saving data'});
         }
     });
 
@@ -70,8 +99,8 @@ module.exports = function (db) {
     // POST route for logging in
     router.post('/login', loginLimiter,
       // validate user inputs
-      body('email').isEmail().withMessage('Invalid email'),
-      body('password').notEmpty().withMessage('Password is required')
+      body('email').isEmail().withMessage('Invalid email').normalizeEmail(),
+      body('password').trim().notEmpty().withMessage('Password is required')
                       .isString().withMessage('Password must be a string'),
       async (req, res) => {
         // return all validation errors if there are any
@@ -83,33 +112,114 @@ module.exports = function (db) {
         console.log(req.body);
 
         // separate components
-        const email = req.body.email.toLowerCase(); // normalize the email
-        const password = req.body.password;
+        const {email, password} = req.body;
 
         try {
             // find the user
-            const user = await users.findOne({ email });
+            const user = await users.findOne({email});
             if (!user) {
-                return res.status(401).json({ message: 'user does not exist' });
+                return res.status(401).json({error: 'user does not exist' });
             }
-
-            console.log('Password value and type:', password, typeof password);
 
             // check if the password matches
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
-                return res.status(401).json({ message: 'invalid credentials' });
+                return res.status(401).json({error: 'invalid credentials' });
             }
 
-            // generate token
-            const token = jwt.sign({userId: user._id, email: user.email}, 
+            // generate tokens
+            const accessToken = jwt.sign({userId: user._id, email: user.email}, 
               process.env.JWT_SECRET, {expiresIn: '1h'});
-              console.log(token);
 
-            res.status(200).json({message: 'login successful', token: token});
+            const refreshToken = jwt.sign({userId: user._id}, 
+              process.env.JWT_REFRESH, {expiresIn: '7d'});
+
+            // hash and then update refresh token
+            const hashedToken = await bcrypt.hash(refreshToken, 10);
+            await users.updateOne({_id: user._id}, {$set: {refreshToken: hashedToken}});
+
+            res.cookie('refreshToken', refreshToken, refreshCookieOptions);
+
+            res.status(200).json({message: 'login successful', accessToken});
         } catch (err) {
+            console.error(err);
             res.status(500).json({error: 'error retrieving data'});
         }
+    });
+
+    // create a new access token when the refresh token is valid
+    router.post('/refresh', async(req, res) => {
+      const refreshToken = req.cookies.refreshToken;
+
+      if(!refreshToken){
+        return res.status(401).json({error: 'no token provided'});
+      }
+
+      try{
+        const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH);
+        
+        const user = await users.findOne({_id: payload.userId});
+        if(!user){
+          return res.status(403).json({error: 'invalid token'});
+        }
+
+        const isMatch = await bcrypt.compare(refreshToken, user.refreshToken);
+        if(!isMatch){
+          return res.status(403).json({error: 'invalid token'});
+        }
+
+        const newAccessToken = jwt.sign({userId: user._id, email: user.email},
+          process.env.JWT_SECRET, {expiresIn: '1h'}
+        );
+
+        const newRefreshToken = jwt.sign({userId: user._id},
+          process.env.JWT_REFRESH, {expiresIn: '7d'}
+        );
+
+        const hashedRefreshToken = await bcrypt.hash(newRefreshToken, 10);
+        await users.updateOne({_id: user._id}, {$set: {refreshToken: hashedRefreshToken}});
+
+        res.cookie('refreshToken', newRefreshToken, refreshCookieOptions);
+
+        res.json({accessToken: newAccessToken});
+      } catch(err){
+        console.error(err);
+        return res.status(403).json({error: 'invalid refresh token'});
+      }
+    });
+
+    // remove the refresh token when logging out
+    router.post('/logout', async(req, res) => {
+      console.log('Cookies:', req.cookies);
+      const refreshToken = req.cookies.refreshToken;
+
+      if(!refreshToken){
+        return res.sendStatus(204);
+      }
+
+      try{
+        // get the user id from the refresh token
+        const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH);
+        const user = await users.findOne({_id: new ObjectId(payload.userId)});
+
+        if(!user || !user.refreshToken){
+          return res.sendStatus(204);
+        }
+
+        const isMatch = await bcrypt.compare(refreshToken, user.refreshToken);
+        if(!isMatch){
+          return res.sendStatus(204);
+        }
+
+        // clear the stored refresh token
+        await users.updateOne({_id: user._id}, {$unset: {refreshToken: ''}});
+        res.clearCookie('refreshToken', clearCookieOptions);
+
+        res.sendStatus(204);
+      } catch(err){
+        console.error(err);
+        return res.sendStatus(204);
+      }
     });
 
     router.post('/data', (req, res) => {

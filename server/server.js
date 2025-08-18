@@ -3,9 +3,21 @@ const path = require('path');
 const app = express();
 const dotenv = require('dotenv');
 const { MongoClient } = require("mongodb");
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 dotenv.config();
 app.use(express.json());
+app.use(cookieParser());
+
+// is this production?
+const isProduction = process.env.NODE_ENV === 'production';
+
+// set origin
+app.use(cors({
+    origin: isProduction ? process.env.CORS_ORIGIN : 'http://localhost:3000',
+    credentials: true
+}));
 
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);

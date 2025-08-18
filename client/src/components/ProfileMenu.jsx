@@ -26,8 +26,8 @@ function ProfileMenu() {
         return () => document.removeEventListener('mousedown', handleOutsideClick);
     }, []);
 
-    const handleLogout = () => {
-        logout();
+    const handleLogout = async () => {
+        await logout();
         setOpen(false);
         navigate('/');
         console.log("logged out");
