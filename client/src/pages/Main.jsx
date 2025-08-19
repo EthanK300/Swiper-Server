@@ -136,44 +136,37 @@ function Main() {
 
     const addTask = () => {
         // TODO: make this submit and add the task (need to make the actual task stuff first)
+
+        // testing add
+        // tasks.push({ title: "task 5", desc: "task 5000 description", dueDate: 39408324598 });
         console.log("addTask called");
     }
 
-    const completeTask = () => {
+
+    const completeTask = async (element) => {
         console.log("complete clicked");
+        // animation
+        element.style.opacity = "0";
+        element.style.transform = "translateX(-100%)";
+        await new Promise(resolve => setTimeout(resolve, 500));
+        console.log("await animation done");
+
+        // re-create and remove the task and update tasks array
+        const newTaskArray = [...tasks];
+        newTaskArray.splice(activeCard, 1);
+        setTasks(newTaskArray);
+
     }
 
-    const delayTask = () => {
+    const delayTask = (element) => {
         console.log("delay clicked");
     }
+    
 
     const containerRef = useRef(null);
     const [activeCard, setActiveCard] = useState(0);
+    const cardRef = useRef(null);
     let scrollTimeout;
-
-    /*
-    function animateScroll(container, target, duration = 500) {
-        return new Promise((resolve) => {
-            console.log("animate?");
-            const start = container.scrollTop;
-            const change = target - start;
-            let startTime;
-        
-            function step(timestamp) {
-                if (!startTime) startTime = timestamp;
-                const progress = Math.min((timestamp - startTime) / duration, 1);
-            
-                // Example easeInOut curve
-                const ease = 0.5 - Math.cos(progress * Math.PI) / 2;
-                container.scrollTop = start + change * ease;
-                
-                if (progress < 1) requestAnimationFrame(step);
-            }
-        
-            requestAnimationFrame(step);
-        });
-    }
-    */
 
     async function snapScroll() {
         if (!containerRef.current) return;
@@ -197,7 +190,6 @@ function Main() {
     
             });
             setActiveCard(closestIndex);
-            // await animateScroll(container, container.scrollTop + minDistance, 700);
             container.scrollBy({ behavior: "smooth", top: minDistance });
     }
     
@@ -209,30 +201,45 @@ function Main() {
         }, 50);
     };
 
-    let tasks = [
-        { title: "task 1", desc: "task 1 description", dueDate: 100001010101 },
-        { title: "task 2", desc: "task 2 description", dueDate: 388498324598 },
-        { title: "task 3", desc: "task 3 description", dueDate: 2092468324598 },
-        { title: "task 4", desc: "task 4 description", dueDate: 396488324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598 },
-    ];
+    const [animationStatus, setAnimationStatus] = useState(false);
+    const [tasks, setTasks] = useState([
+        { title: "task 1", desc: "task 1 description", dueDate: 100001010101, id: 0},
+        { title: "task 2", desc: "task 2 description", dueDate: 388498324598, id: 1},
+        { title: "task 3", desc: "task 3 description", dueDate: 2092468324598, id: 2},
+        { title: "task 4", desc: "task 4 description", dueDate: 396488324598, id: 3},
+        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 4},
+        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 5},
+        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 6},
+        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 7},
+        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 8},
+        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 9},
+        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 10},
+        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 11},
+    ]);
+
+    // TODO: map this to the buttons, test if it works
+    const handleActionButton = async (button) => {
+        if (animationStatus) return;
+        setAnimationStatus(true);
+
+        if (!cardRef.current) {
+            console.log("card reference error!");
+        }
+
+        if (button === "complete") {
+            await completeTask(cardRef.current);
+        } else {
+            await delayTask(cardRef.current);
+        }
+
+        setAnimationStatus(false);
+    };
 
     useEffect(() => {
         updateMiddleHeight();
         window.addEventListener('resize', updateMiddleHeight);
         const container = containerRef.current;
+
         if (container) {
             container.addEventListener("scroll", handleScroll);
         }
@@ -253,7 +260,7 @@ function Main() {
             </div>
             <div id="tasklist-main" ref={tasklistmain} style={{ height: `${middle}px` }}>
                 <div id="main-left" className="side-buttons">
-                    <svg id="complete-button" viewBox="0 0 106.6 100" onClick={completeTask}>
+                    <svg id="complete-button" viewBox="0 0 106.6 100" onClick={() => handleActionButton('complete')}>
                         <polygon points="0,50 66.6,0 106.6,0 106.6, 100 66.6,100" fill="green" className="arrow"/>
                     </svg>
                 </div>
@@ -262,13 +269,13 @@ function Main() {
                         {tasks.map((task, index) => {
                             let time = (new Date(task.dueDate)).toDateString();
                             return(
-                                <div className={`task-card ${index === activeCard ? "active-card" : ""}`} key={index}>{task.title + " " + task.desc + " " + time}</div>
+                                <div ref={index === activeCard ? cardRef : null } className={`task-card ${index === activeCard ? "active-card" : ""}`} key={task.id}>{task.title + " " + task.desc + " " + time}</div>
                             );
                         })}
                     </div>
                 </div>
                 <div id="main-right" className="side-buttons">
-                    <svg id="delay-button" viewBox="0 0 106.6 100" onClick={delayTask}>
+                    <svg id="delay-button" viewBox="0 0 106.6 100" onClick={() => handleActionButton('delay')}>
                         <polygon points="0,0 40,0 106.6,50 40,100 0,100" fill="red" className="arrow"/>
                     </svg>
                 </div>

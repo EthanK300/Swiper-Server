@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0] - 8/19/25
+
+### Added
+- Complete button is able to delete task from tasks list
+
+### Changed
+- Refactored the button call hierarchy a bit
+
 ## [1.0] - 8/17/25
 
 ### Added

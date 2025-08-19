@@ -83,6 +83,7 @@
     mask-image: var(--gradient);
     mask-repeat: no-repeat;
     mask-composite: intersect;
+    
 }
 
 #task-container::-webkit-scrollbar {
