@@ -3,6 +3,18 @@
 ## [1.0] - 8/19/25
 
 ### Added
+- Delay button works but the animation is a bit scuffed
+- Task handling is all in states
+
+### Changed
+- Main css transition scheme for animation
+
+### Fixed
+- Clean up print statements in random files
+
+## [1.0] - 8/18/25
+
+### Added
 - Complete button is able to delete task from tasks list
 
 ### Changed

@@ -8,7 +8,6 @@ function FilterMenu({ activeFilter, setFilter }) {
     const [buttonStyle, setButtonStyle] = useState({ left: 0});
     const filters = ["Today", "This Week", "All"];
     const width = 100 / (filters.length);
-    console.log();
 
     useEffect(() => {
         // when the active filter changes, this runs

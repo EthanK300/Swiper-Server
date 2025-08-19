@@ -138,10 +138,9 @@ function Main() {
         // TODO: make this submit and add the task (need to make the actual task stuff first)
 
         // testing add
-        // tasks.push({ title: "task 5", desc: "task 5000 description", dueDate: 39408324598 });
+        // tasks.push({ title: "task 5", desc: "task 5000 description", dueDate: 39408324598, key: 1872182828728282 });
         console.log("addTask called");
     }
-
 
     const completeTask = async (element) => {
         console.log("complete clicked");
@@ -158,8 +157,25 @@ function Main() {
 
     }
 
-    const delayTask = (element) => {
+    const [delayAmount, setDelayAmount] = useState(86400000);
+    const delayTask = async (element) => {
         console.log("delay clicked");
+        
+        element.style.opacity = "0";
+        element.style.transform = "translateX(100%)";
+        await new Promise(resolve => setTimeout(resolve, 500));
+        console.log("await animation done");
+
+        // update the element
+        const newTaskArray = [...tasks];
+        const task = { ...newTaskArray[activeCard], dueDate: newTaskArray[activeCard].dueDate + delayAmount };
+        newTaskArray[activeCard] = task;
+        setTasks(newTaskArray);
+
+        // re-show the element
+        element.style.opacity = "1";
+        element.style.transform = "";
+        console.log("update?");
     }
     
 
@@ -202,18 +218,19 @@ function Main() {
     };
 
     const [animationStatus, setAnimationStatus] = useState(false);
+
     const [tasks, setTasks] = useState([
         { title: "task 1", desc: "task 1 description", dueDate: 100001010101, id: 0},
         { title: "task 2", desc: "task 2 description", dueDate: 388498324598, id: 1},
         { title: "task 3", desc: "task 3 description", dueDate: 2092468324598, id: 2},
         { title: "task 4", desc: "task 4 description", dueDate: 396488324598, id: 3},
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 4},
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 5},
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 6},
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 7},
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 8},
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 9},
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 10},
+        { title: "task 5", desc: "task 5 description", dueDate: 0, id: 4},
+        { title: "task 5", desc: "task 5 description", dueDate: 86400000, id: 5},
+        { title: "task 5", desc: "task 5 description", dueDate: (2 * 86400000), id: 6},
+        { title: "task 5", desc: "task x description", dueDate: (3 * 86400000), id: 7},
+        { title: "task 5", desc: "task 5 description", dueDate: (4 * 86400000), id: 8},
+        { title: "task 5", desc: "task 5 description", dueDate: (5 * 86400000), id: 9},
+        { title: "task 5", desc: "task 5 description", dueDate: (6 * 86400000), id: 10},
         { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 11},
     ]);
 
@@ -231,6 +248,9 @@ function Main() {
         } else {
             await delayTask(cardRef.current);
         }
+        setTasks(prevTasks =>
+            [...prevTasks].sort((a, b) => a.dueDate - b.dueDate)
+        );
 
         setAnimationStatus(false);
     };
@@ -244,7 +264,7 @@ function Main() {
             container.addEventListener("scroll", handleScroll);
         }
         
-        fetchData();
+        // fetchData();
         // TODO: uncomment this when committing, comment this when testing /dashboard frontend
 
         return () => {
