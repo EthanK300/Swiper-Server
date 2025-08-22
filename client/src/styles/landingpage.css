@@ -17,6 +17,7 @@
 #left {
     position: relative;
     height: 100%;
+    z-index: 999;
 }
 
 #cta-circle {
@@ -32,7 +33,6 @@
     top: -20%;
     left: -10%;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-    z-index: 999;
 }
 
 #cta-text {
@@ -43,6 +43,33 @@
     width: 200px;
     font-family: exo2;
     transform: translateY(50px);
+}
+
+#support {
+    text-align: center;
+    line-height: 1.5;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    background: linear-gradient(120deg, #89f7fe, #66a6ff);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border: 2px solid #5ebde5;
+}
+
+#support:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(120deg, #7fd4e6, #5ca3e6);
+    border-color: #4a99d4;
+}
+
+#support:active {
+    transform: translateY(0);
+    background: linear-gradient(120deg, #76c1d7, #5390d6);
+    border-color: #3e80b8;
 }
 
 #encourage {
@@ -140,6 +167,7 @@
     border-radius: 50%;
     aspect-ratio: 1/1;
     margin-left: 7.5%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.175);
 }
 
 #city {

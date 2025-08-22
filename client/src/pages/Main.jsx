@@ -138,7 +138,7 @@ function Main() {
         // TODO: make this submit and add the task (need to make the actual task stuff first)
 
         // testing add
-        // tasks.push({ title: "task 5", desc: "task 5000 description", dueDate: 39408324598, key: 1872182828728282 });
+        // tasks.push({ title: "task 5", desc: "task 5000 description", dueDate: 39408324598, id: 1872182828728282 });
         console.log("addTask called");
     }
 
@@ -234,7 +234,6 @@ function Main() {
         { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 11},
     ]);
 
-    // TODO: map this to the buttons, test if it works
     const handleActionButton = async (button) => {
         if (animationStatus) return;
         setAnimationStatus(true);

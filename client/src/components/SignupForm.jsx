@@ -9,7 +9,7 @@ import "../styles/signup-form.css";
 
 function SignupForm() {
     const navigate = useNavigate();
-    const [register, setRegister] = useState(false);
+    const [register, setRegister] = useState(true);
     const { login } = useAuth();
     
     // at runtime determine what server we are
@@ -130,7 +130,7 @@ function SignupForm() {
                     </p>
                     <div id="dual-button">
                         <button onClick={() => setRegister(true)} class="secondary" id="to-register">Register</button>
-                        <button onClick={loginGuest} id="login-guest" class="secondary">Login as a guest</button>
+                        {/* <button onClick={loginGuest} id="login-guest" class="secondary">Login as a guest</button> */}
                     </div>
                 </div>
                 <div id="register" class="panel">

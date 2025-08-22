@@ -51,7 +51,7 @@ function StackedScroll( { id, className } ) {
                 className="card"
                 style={{
                 ...getStyle(i),
-                transition: "transform 1s ease, opacity 0.25s ease",
+                transition: "transform 1s ease, opacity 0.25s ease, border-color 0.5s ease",
                 }}
             >
                 {msg}

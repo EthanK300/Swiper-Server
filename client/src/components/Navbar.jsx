@@ -42,7 +42,7 @@ function Navbar() {
                 </button>
             </div>
             <div id="nav-right">
-                <button id="about-button" onClick={about}>About</button>
+                {user ? "" : <button id="about-button" onClick={about}>About</button>}
                 <div id="user-status">
                     {user ? (
                         <ProfileMenu/>

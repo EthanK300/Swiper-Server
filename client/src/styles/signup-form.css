@@ -111,13 +111,15 @@ button {
 }
 
 #to-register {
-    width: 50%;
+    /* width: 50%; */
+    padding: 1rem;
 }
 
 #to-login {
     padding: 1rem;
 }
 
-#login-guest {
+/* #login-guest {
     width: 50%;
-}
+    padding: 1rem;
+} */

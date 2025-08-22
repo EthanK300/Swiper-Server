@@ -47,11 +47,14 @@ function LandingPage() {
                         <div id="encourage">
                             <p id="encourage-text">Download the app!</p>
                             <div id="button-row">
-                                <a href="/" target="_blank" class="download-button" id="android-button">Android</a>
-                                <a href="/" target="_blank" class="download-button" id="ios-button">iOS</a>
+                                <a href="https://github.com/EthanK300/Swiper" rel="noreferrer" target="_blank" class="download-button" id="android-button">Android</a>
+                                {/* <a href="/" target="_blank" class="download-button" id="ios-button">iOS</a> */}
                                 {/* TODO: need to update these links with potential actual download links later */}
                             </div>
                         </div>
+                    </div>
+                    <div id="support" onClick={() => {window.location.href = "mailto:support@swipersystems.com";}}>
+                        We’re in early access 🚀!<br/>Feedback welcome at support@swipersystems.com<br/>(Click to open mailto link)
                     </div>
                 </div>
                 <div id="right">
