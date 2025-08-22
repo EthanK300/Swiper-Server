@@ -11,7 +11,8 @@ function Main() {
     const { login, logout } = useAuth();
     const navigate = useNavigate();
     const [active, setActive] = useState("Today");
-
+    const [empty, setEmpty] = useState(true);
+    
     let URL = "";
     if (process.env.REACT_APP_DEV === "true") {
         URL = process.env.REACT_APP_IP + ":" + process.env.REACT_APP_PORT;
@@ -62,6 +63,12 @@ function Main() {
 
             console.log("response: " + response.data);
             console.log(response);
+            // TODO: set empty in here
+            if (response.data.tasks.length === 0) {
+                setEmpty(true);
+            } else {
+                setEmpty(false);
+            }
 
         } catch (err) {
             if (err.response) {
@@ -263,7 +270,7 @@ function Main() {
             container.addEventListener("scroll", handleScroll);
         }
         
-        // fetchData();
+        fetchData();
         // TODO: uncomment this when committing, comment this when testing /dashboard frontend
 
         return () => {
@@ -285,7 +292,10 @@ function Main() {
                 </div>
                 <div id="main-middle">
                     <div id="task-container" ref={containerRef}>
-                        {tasks.map((task, index) => {
+                        {empty ? (
+                            <div id="empty">No tasks yet. Click the + button below to add some!</div>
+                        ) : 
+                        tasks.map((task, index) => {
                             let time = (new Date(task.dueDate)).toDateString();
                             return(
                                 <div ref={index === activeCard ? cardRef : null } className={`task-card ${index === activeCard ? "active-card" : ""}`} key={task.id}>{task.title + " " + task.desc + " " + time}</div>

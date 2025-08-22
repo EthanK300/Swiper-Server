@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0] - 8/22/25
+
+### Added
+- Support us button on landing page
+
+### Changed
+- Styling on landing page and navbar
+- Signup form defaults to register instead of login
+
+### Fixed
+- Broken download button now maps to github for now
+
 ## [1.0] - 8/19/25
 
 ### Added
