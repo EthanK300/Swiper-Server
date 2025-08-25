@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0] - 8/25/25
+
+### Added
+- Started task form component
+
+### Changed
+- Add bar to persist through overlay darken
+
 ## [1.0] - 8/22/25
 
 ### Added

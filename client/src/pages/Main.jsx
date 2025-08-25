@@ -4,6 +4,7 @@ import { useAuth } from "../components/AuthContext";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 
+import TaskForm, { triggerSubmit } from "../components/TaskForm";
 import FilterMenu from "../components/FilterMenu";
 import '../styles/main.css';
 
@@ -100,7 +101,7 @@ function Main() {
     const handlerRef = useRef(null);
 
     const resetAddMenu = () => {
-        console.log("reset called: " + handlerRef.current);
+        // console.log("reset called: " + handlerRef.current);
         document.getElementById('add-bar').innerHTML = "+";
         window.removeEventListener("keydown", handlerRef.current);
         setOpen(false);
@@ -114,6 +115,7 @@ function Main() {
             const element = document.getElementById('add-bar');
             element.innerHTML = "Add";
             element.blur();
+            setVisible(true);
 
             const handleKeypress = (event) => {
                 console.log("keypress: " + event.key);
@@ -121,11 +123,12 @@ function Main() {
                 if (event.key === "Enter") {
                     resetAddMenu();
                     addTask();
+                    setVisible(false);
                     // TODO: exit and add task to db
-        
+                    
                 } else if (event.key === "Escape") {
                     resetAddMenu();
-
+                    setVisible(false);
                     // TODO: exit and cancel
                     
                 }
@@ -135,18 +138,33 @@ function Main() {
 
         } else {
             // add clicked
-            console.log("actual add button clicked");
             addTask();
+            setVisible(false);
             resetAddMenu();
         }
     }
 
-    const addTask = () => {
-        // TODO: make this submit and add the task (need to make the actual task stuff first)
+    const [isVisible, setVisible] = useState(false);
 
+    useEffect(() => {   
+        if (isVisible) {
+            // if the form is shown
+            document.getElementById('add-bar').style.zIndex = 11;
+            document.getElementById('add-form').style.display = 'block';
+        } else {
+            // if the form is hidden
+            document.getElementById('add-form').style.display = 'none';
+            document.getElementById('add-bar').style.zIndex = 9;
+        }
+    }, [isVisible]);
+
+    const addTask = () => {
+        const obj = triggerSubmit();
+        console.log("addTask called: " + obj);
+        // TODO: make this submit and add the task (need to make the actual task stuff first)
+        
         // testing add
         // tasks.push({ title: "task 5", desc: "task 5000 description", dueDate: 39408324598, id: 1872182828728282 });
-        console.log("addTask called");
     }
 
     const completeTask = async (element) => {
@@ -270,7 +288,7 @@ function Main() {
             container.addEventListener("scroll", handleScroll);
         }
         
-        fetchData();
+        // fetchData();
         // TODO: uncomment this when committing, comment this when testing /dashboard frontend
 
         return () => {
@@ -312,6 +330,7 @@ function Main() {
             <div id="bottom">
                 <div id="add-bar" ref={bottom} onClick={addClickHandler}>+</div>
             </div>
+            <TaskForm id="add-form"/>
         </div>
     );
 }

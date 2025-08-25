@@ -2,7 +2,7 @@
 
 - auto assign IDs to task elements (task ID's should be stored in mongo database too(?))
 - fix delay animation (so cooked right now)
-- Create form/ui elements for the add task via web
+- Create form fields and link submit data to function return
 - Go through main .jsx files and look for onclick={function()} and replace with onClick={function}
 - Fix colors on filtermenu to actually good looking colors
 - unify styling along the whole website and apps
