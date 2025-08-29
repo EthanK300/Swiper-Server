@@ -1,5 +1,7 @@
 # TODO
 
+- Clean up comments & code
+- Fix styling scoping so that CSS leaks don't occur
 - auto assign IDs to task elements (task ID's should be stored in mongo database too(?))
 - fix delay animation (so cooked right now)
 - Create form fields and link submit data to function return

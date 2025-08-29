@@ -4,7 +4,7 @@ import { useAuth } from "../components/AuthContext";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 
-import TaskForm, { triggerSubmit } from "../components/TaskForm";
+import TaskForm from "../components/TaskForm";
 import FilterMenu from "../components/FilterMenu";
 import '../styles/main.css';
 
@@ -145,7 +145,7 @@ function Main() {
     }
 
     const [isVisible, setVisible] = useState(false);
-
+    
     useEffect(() => {   
         if (isVisible) {
             // if the form is shown
@@ -157,10 +157,22 @@ function Main() {
             document.getElementById('add-bar').style.zIndex = 9;
         }
     }, [isVisible]);
-
-    const addTask = () => {
-        const obj = triggerSubmit();
-        console.log("addTask called: " + obj);
+    
+    const formRef = useRef(null);
+    const addTask = async () => {
+        const handler = formRef.current;
+        let ret;
+        if (!handler) {
+            console.log("no form handler attached");
+            return;
+        } else {
+            try{
+                ret = await handler.triggerSubmit();
+            } catch (e) {
+                console.log("error: " + e);
+            }
+        }
+        console.log("addTask called: " + ret.title + "," + ret.description);
         // TODO: make this submit and add the task (need to make the actual task stuff first)
         
         // testing add
@@ -279,6 +291,7 @@ function Main() {
         setAnimationStatus(false);
     };
 
+
     useEffect(() => {
         updateMiddleHeight();
         window.addEventListener('resize', updateMiddleHeight);
@@ -330,7 +343,7 @@ function Main() {
             <div id="bottom">
                 <div id="add-bar" ref={bottom} onClick={addClickHandler}>+</div>
             </div>
-            <TaskForm id="add-form"/>
+            <TaskForm id="add-form" ref={formRef}/>
         </div>
     );
 }

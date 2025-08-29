@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0] - 8/28/25
+
+### Added
+- Task form working
+
 ## [1.0] - 8/25/25
 
 ### Added
