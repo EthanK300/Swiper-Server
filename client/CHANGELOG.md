@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0] - 9/1/25
+
+### Added
+- Add button adds task to UI
+
+### Changed
+- Removed "empty" state variable, just using tasks.length to track now
+
 ## [1.0] - 8/31/25
 
 ### Added

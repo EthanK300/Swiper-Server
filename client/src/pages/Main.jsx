@@ -12,7 +12,6 @@ function Main() {
     const { login, logout } = useAuth();
     const navigate = useNavigate();
     const [active, setActive] = useState("Today");
-    const [empty, setEmpty] = useState(true);
     
     let URL = "";
     if (process.env.REACT_APP_DEV === "true") {
@@ -67,7 +66,6 @@ function Main() {
 
             // TODO: set empty in here
             setTasks(fetchedTasks);
-            setEmpty(fetchedTasks.length === 0);
 
             console.log('fetched tasks:', fetchedTasks);
 
@@ -172,9 +170,10 @@ function Main() {
                 console.log("error: " + e);
             }
         }
-        console.log("went through. data:");
-        console.log(ret);
-        // TODO: make this submit and add the task (need to make the actual task stuff first)
+        const newTask = { title: ret.title, desc: ret.description, dueDate: ret.date };
+        setTasks((prevTasks) => [...prevTasks, newTask]);
+        // console.log("updated task: length: " + tasks.length);
+        // TODO: make this reflect into the database! also fix why the length is funny (might be re-rendering issue)
         
         // testing add
         // tasks.push({ title: "task 5", desc: "task 5000 description", dueDate: 39408324598, id: 1872182828728282 });
@@ -195,7 +194,7 @@ function Main() {
 
     }
 
-    // TOOD: this can be implemented in user conveniences?
+    // TOOD: variable delay can be implemented later for user convenience
     const [delayAmount, setDelayAmount] = useState(86400000);
     const delayTask = async (element) => {
         console.log("delay clicked");
@@ -312,7 +311,7 @@ function Main() {
                 </div>
                 <div id="main-middle">
                     <div id="task-container" ref={containerRef}>
-                        {empty ? (
+                        {tasks.length === 0 ? (
                             <div id="empty">No tasks yet. Click the + button below to add some!</div>
                         ) : 
                         tasks.map((task, index) => {

@@ -1,7 +1,7 @@
 # TODO
 
-- Clean up comments & code
-- Reconnect EMPTY status on task list main
+- Make extra un-deletable cards for padding in the scroller so it doesn't crash
+- Make add task function reflect in database after adding to UI
 - Make add button more visible
 - Fix styling scoping so that CSS leaks don't occur
 - auto assign IDs to task elements (task ID's should be stored in mongo database too(?))

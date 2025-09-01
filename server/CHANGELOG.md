@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0] - 9/1/25
+
+### Added
+- Retrieve data and send to frontend on /data request
+
 ## [1.0] - 8/17/25
 
 ### Changed
