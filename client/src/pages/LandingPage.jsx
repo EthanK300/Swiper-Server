@@ -1,17 +1,15 @@
 import DeviceScroll from "../components/DeviceScroller";
 import SignupForm from "../components/SignupForm";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { useAuth } from "../components/AuthContext";
 import { useEffect } from 'react';
 
 import "../styles/landingpage.css";
 
-import personphoneimg from "../assets/persononphone.jpg"
-import cityscape from "../assets/cityscape2.jpeg"
-
 function LandingPage() {
     const token = localStorage.getItem('jwt');
+    const location = useLocation();
     const navigate = useNavigate();
     const { login, logout } = useAuth();
 
@@ -36,7 +34,24 @@ function LandingPage() {
             console.log("NO TOKEN! KICKED BACK TO LANDING PAGE");
             logout();
         }
-    }, []);
+
+        const scrollTarget = location.state?.scrollTo;
+        if(scrollTarget){
+            setTimeout(() => {
+                const offset = window.innerHeight * 0.1;
+                const element = document.getElementById(scrollTarget);
+                if(element){
+                    const y = element.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                    console.log(`scrolled to: ${scrollTarget}`);
+                } else {
+                    console.log(`element #${scrollTarget} not found`);
+                }
+            }, 0);
+
+            navigate(location.pathname, {replace: true, state: {}});
+        }
+    }, [location]);
 
     return (
         <div id="content">
@@ -59,36 +74,6 @@ function LandingPage() {
                 </div>
                 <div id="right">
                     <DeviceScroll/>
-                </div>
-            </div>
-            <div id="whatis">
-                <h1 class="headline">What is Swiper?</h1>
-                <div class="left-right">
-                    <img src={personphoneimg} alt="person on phone" class="popimg"/>
-                    <ul class="general">Swiper is a sleek, task-oriented app designed to 
-                    help you track and manage time-sensitive activities with ease.
-                        <li>
-                        Create and organize items with intuitive forms
-                        </li>
-                        <li>
-                        Easy scheduling using built-in date and time pickers, and view tasks in a clean,
-                        responsive layout
-                        </li>
-                        <li>
-                        Optimized for speed and simplicity
-                        </li>
-                        Swiper 
-                        keeps you focused on what matters most - getting things done.
-                    </ul>
-                </div>
-                <h1 class="headline">Our Mission</h1>
-                <div class="right-left">
-                    <p class="general" id="mission-text">
-                        Our mission at the Swiper team is to build tools optimized for clarity, efficiency, and usability. 
-                        Even small conveniences we take seriously to ensure a smooth user experience. Built with calm and
-                        refreshing colors, we aim to enhance and streamline your productivity.
-                    </p>
-                    <img src={cityscape} alt="city scape" class="popimg" id="city"/>
                 </div>
             </div>
             <div id="sign-up">

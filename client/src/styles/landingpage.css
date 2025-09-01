@@ -119,26 +119,6 @@
     align-items: center;
 }
 
-#whatis {
-    border-radius: 10vw;
-    width: 90vw;
-    background: cyan;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 3.5%;
-    margin-bottom: 3.5%;
-}
-
-.headline {
-    font-size: auto;
-    font-weight: bold;
-    margin-top: 3.5%;
-    margin-bottom: 2%;
-}
-
 .left-right {
     width: 93%;
     display: flex;
@@ -157,43 +137,6 @@
     margin-right: 3.5%;
     align-items: center;
     margin-bottom: 1%;
-}
-
-.popimg {
-    width: 25%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    border-radius: 50%;
-    aspect-ratio: 1/1;
-    margin-left: 7.5%;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.175);
-}
-
-#city {
-    margin-left: 0%;
-    margin-right: 2.5%;
-    width: 25%;
-}
-
-#mission-text {
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
-.general {
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 1.4vw;
-    font-weight: auto;
-    line-height: 2em;
-}
-
-ul li {
-    margin-left: 2em;
 }
 
 #sign-up {

@@ -4,6 +4,7 @@ import { AuthProvider } from "./components/AuthContext";
 
 import Main from "./pages/Main";
 import LandingPage from "./pages/LandingPage";
+import About from "./pages/About";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -21,6 +22,7 @@ function App() {
                         <Footer />
                     </>
             } />
+                <Route path="/about" element={<About />} />
                 <Route path="/dashboard" element={<Main />} />
             </Routes>
             </main>
