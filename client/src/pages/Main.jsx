@@ -49,11 +49,8 @@ function Main() {
             return;
         }
 
-        const data = {
-            testKey: "testValue"
-        }
         try {
-            const response = await axios.post(`${URL}/api/data`, data, {
+            const response = await axios.post(`${URL}/api/data`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
@@ -64,12 +61,15 @@ function Main() {
 
             console.log("response: " + response.data);
             console.log(response);
+
+            const fetchedTasks = response.data.tasks || [];
+            fetchedTasks.sort((a,b) => a.dueDate - b.dueDate); // sort by due date
+
             // TODO: set empty in here
-            if (response.data.tasks.length === 0) {
-                setEmpty(true);
-            } else {
-                setEmpty(false);
-            }
+            setTasks(fetchedTasks);
+            setEmpty(fetchedTasks.length === 0);
+
+            console.log('fetched tasks:', fetchedTasks);
 
         } catch (err) {
             if (err.response) {
@@ -258,20 +258,7 @@ function Main() {
 
     const [animationStatus, setAnimationStatus] = useState(false);
 
-    const [tasks, setTasks] = useState([
-        { title: "task 1", desc: "task 1 description", dueDate: 100001010101, id: 0},
-        { title: "task 2", desc: "task 2 description", dueDate: 388498324598, id: 1},
-        { title: "task 3", desc: "task 3 description", dueDate: 2092468324598, id: 2},
-        { title: "task 4", desc: "task 4 description", dueDate: 396488324598, id: 3},
-        { title: "task 5", desc: "task 5 description", dueDate: 0, id: 4},
-        { title: "task 5", desc: "task 5 description", dueDate: 86400000, id: 5},
-        { title: "task 5", desc: "task 5 description", dueDate: (2 * 86400000), id: 6},
-        { title: "task 5", desc: "task x description", dueDate: (3 * 86400000), id: 7},
-        { title: "task 5", desc: "task 5 description", dueDate: (4 * 86400000), id: 8},
-        { title: "task 5", desc: "task 5 description", dueDate: (5 * 86400000), id: 9},
-        { title: "task 5", desc: "task 5 description", dueDate: (6 * 86400000), id: 10},
-        { title: "task 5", desc: "task 5 description", dueDate: 39408324598, id: 11},
-    ]);
+    const [tasks, setTasks] = useState([]);
 
     const handleActionButton = async (button) => {
         if (animationStatus) return;

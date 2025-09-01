@@ -30,6 +30,7 @@ module.exports = function (db) {
     const router = express.Router();
     const users = db.collection('users');
     users.createIndex({email: 1}, {unique: true}); // make sure all emails are unique
+    const tasks = db.collection('tasks');
 
     // POST route for registering
     router.post('/register', 
@@ -222,12 +223,29 @@ module.exports = function (db) {
       }
     });
 
-    router.post('/data', (req, res) => {
+    router.post('/data', async (req, res) => {
         console.log("dashboard queried");
-        if (req.body.token) {
-            console.log("found a token");
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
+
+        if(!token){
+          return res.status(401).json({error: 'access token required'});
         }
-        res.status(200).send("received /data request");
+
+        try{
+          const decoded = jwt.verify(token, process.env.JWT_SECRET);
+          const userId = decoded.userId;
+          const taskCursor = await tasks.find({userId: new ObjectId(userId)});
+          const userTasks = await taskCursor.toArray();
+
+          console.log('user id:', userId);
+          console.log('task:', userTasks);
+
+          res.status(200).json({tasks: userTasks});
+        } catch(err){
+          console.error(err);
+          return res.status(500).json({error: 'failed to get tasks'});
+        }
     });
 
     return router;
