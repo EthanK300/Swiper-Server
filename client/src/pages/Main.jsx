@@ -150,7 +150,7 @@ function Main() {
         if (isVisible) {
             // if the form is shown
             document.getElementById('add-bar').style.zIndex = 11;
-            document.getElementById('add-form').style.display = 'block';
+            document.getElementById('add-form').style.display = 'flex';
         } else {
             // if the form is hidden
             document.getElementById('add-form').style.display = 'none';
@@ -172,7 +172,8 @@ function Main() {
                 console.log("error: " + e);
             }
         }
-        console.log("addTask called: " + ret.title + "," + ret.description);
+        console.log("went through. data:");
+        console.log(ret);
         // TODO: make this submit and add the task (need to make the actual task stuff first)
         
         // testing add
@@ -194,6 +195,7 @@ function Main() {
 
     }
 
+    // TOOD: this can be implemented in user conveniences?
     const [delayAmount, setDelayAmount] = useState(86400000);
     const delayTask = async (element) => {
         console.log("delay clicked");

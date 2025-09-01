@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0] - 8/31/25
+
+### Added
+- Rudimentary date & time picker
+- Positionally-styled form elements
+
 ## [1.0] - 8/28/25
 
 ### Added

@@ -8,29 +8,48 @@
     z-index: 10;
     padding-top: calc(32px + 10vh);
     padding-bottom: 15vh;
+    align-content: center;
+    justify-content: center;
 }
 
 #real-form {
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 60%;
     align-items: center;
-    margin: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 100%;
+}
+
+#left-form-card {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .form-card {
-    width: 100%;
+    /* width: 100%; */
     border: 2px solid red;
     background: blue;
-    gap: 1rem;
+    gap: 0.5rem;
     margin: 1rem;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
 }
 
 #title {
 
 }
 
-#description {
+#description-card {
+    height: 30%;
+}
 
+#date {
 }
