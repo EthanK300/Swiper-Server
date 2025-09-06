@@ -181,7 +181,7 @@ function Main() {
         element.style.opacity = "0";
         element.style.transform = "translateX(-100%)";
         await new Promise(resolve => setTimeout(resolve, 500));
-        console.log("await animation done");
+        // console.log("await animation done");
 
         // re-create and remove the task and update tasks array
         const newTaskArray = [...tasks];
@@ -198,7 +198,7 @@ function Main() {
         element.style.opacity = "0";
         element.style.transform = "translateX(100%)";
         await new Promise(resolve => setTimeout(resolve, 500));
-        console.log("await animation done");
+        // console.log("await animation done");
 
         // update the element
         const newTaskArray = [...tasks];
@@ -216,11 +216,44 @@ function Main() {
     const containerRef = useRef(null);
     const [activeCard, setActiveCard] = useState(0);
     const cardRef = useRef(null);
-    let scrollTimeout;
+    
+    // async function snapScroll() {
+    //     if (!containerRef.current) return;
+    //         const container = containerRef.current;
+    //         const containerRect = container.getBoundingClientRect();
+    //         const containerCenter = containerRect.top + (containerRect.height / 2);
+    
+    //         const cardElements = container.querySelectorAll(".task-card");
+    //         let closestIndex = 0;
+    //         let minDistance = Infinity;
+    
+    //         cardElements.forEach((card, index) => {
+    //             const rect = card.getBoundingClientRect();
+    //             const cardCenter = rect.top + rect.height / 2;
+    //             const distance = (cardCenter - containerCenter);
+    
+    //             if (Math.abs(distance) < Math.abs(minDistance)) {
+    //                 minDistance = distance;
+    //                 closestIndex = index;
+    //             }
+    
+    //         });
+    //         setActiveCard(closestIndex);
+    //         container.scrollBy({ behavior: "smooth", top: minDistance });
+    // }
 
-    async function snapScroll() {
-        if (!containerRef.current) return;
-            const container = containerRef.current;
+    const scrollList = (arg) => {
+        console.log("handler called");
+        const container = containerRef.current;
+        if (!container) return;
+
+        if (arg === "complete") {
+            // complete, fade the task to the left, then cinch the task list
+
+        } else if(arg === "delay") {
+            // delay -> same thing as complete but to the right
+            
+        } else if(arg === "userScroll") {
             const containerRect = container.getBoundingClientRect();
             const containerCenter = containerRect.top + (containerRect.height / 2);
     
@@ -241,13 +274,16 @@ function Main() {
             });
             setActiveCard(closestIndex);
             container.scrollBy({ behavior: "smooth", top: minDistance });
-    }
+        }
+
+    };
     
+    let scrollTimeout;
     const handleScroll = () => {
         // console.log("attempting to scroll");
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
-            snapScroll();
+            scrollList("userScroll"); // snapScroll();
         }, 50);
     };
 
@@ -266,12 +302,15 @@ function Main() {
     ]);
 
     const handleActionButton = async (button) => {
+
+        // console.log("animation status gatekeep: " + animationStatus);
         if (animationStatus) return;
         setAnimationStatus(true);
-        console.log(cardRef.current);
+        // console.log(cardRef.current);
         if (!cardRef.current) {
-            console.log("card reference error!");
-            return;    
+            console.log("No card selected");
+            setAnimationStatus(false);
+            return;
         }
 
         if (button === "complete") {
@@ -283,7 +322,7 @@ function Main() {
         setTasks(prevTasks =>
             [...prevTasks].sort((a, b) => a.dueDate - b.dueDate)
         );
-
+        // console.log("reset animation status to false");
         setAnimationStatus(false);
     };
 
@@ -324,8 +363,23 @@ function Main() {
                         ) : 
                         tasks.map((task, index) => {
                             let time = (new Date(task.dueDate)).toDateString();
+                            if (index === 0) {
+
+                            } else if(index === (tasks.length - 1)) {
+
+                            }
                             return(
-                                <div ref={index === activeCard ? cardRef : null } className={`task-card ${index === activeCard ? "active-card" : ""}`} key={task.id}>{task.title + " " + task.desc + " " + time}</div>
+                                <div
+                                    ref={index === activeCard ? cardRef : null } 
+                                    className={`task-card ${index === activeCard ? "active-card" : ""}`} 
+                                    key={task.id}
+                                    style={{
+                                        marginTop: `${index === 0 ? "42.5%" : "0" }`,
+                                        marginBottom: `${index === (tasks.length - 1) ? "42.5%" : "0" }`,
+                                    }}
+                                    >
+                                        {task.title + " " + task.desc + " " + time}
+                                </div>
                             );
                         })}
                     </div>

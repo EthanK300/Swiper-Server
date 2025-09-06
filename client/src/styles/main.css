@@ -92,7 +92,6 @@
 
 .task-card {
     width: 90%;
-    /* height: 15%; */
     flex: 0 0 15%;
     background: lightblue;
     transition: all 0.5s ease;
