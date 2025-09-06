@@ -86,13 +86,9 @@ function Main() {
     const bottom = useRef(null);
 
     const updateMiddleHeight = () => {
-        if (topbar.current && bottom.current) {
-
-        }
         const ty = topbar.current.getBoundingClientRect().bottom;
         const by = bottom.current.getBoundingClientRect().top;
         setMiddle(by - ty);
-        
     }
 
     const [open, setOpen] = useState(false);    // false is not open, true is open
@@ -257,14 +253,25 @@ function Main() {
 
     const [animationStatus, setAnimationStatus] = useState(false);
 
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState([
+
+        { title: "task 1", desc: "task 1 description", dueDate: 100001010101, id: 0},
+        { title: "task 2", desc: "task 2 description", dueDate: 388498324598, id: 1},
+        { title: "task 3", desc: "task 3 description", dueDate: 2092468324598, id: 2},
+        { title: "task 4", desc: "task 4 description", dueDate: 396488324598, id: 3},
+        { title: "task 5", desc: "task 5 description", dueDate: 0, id: 4},
+        { title: "task 5", desc: "task 5 description", dueDate: 86400000, id: 5},
+        { title: "task 5", desc: "task 5 description", dueDate: (2 * 86400000), id: 6},
+
+    ]);
 
     const handleActionButton = async (button) => {
         if (animationStatus) return;
         setAnimationStatus(true);
-
+        console.log(cardRef.current);
         if (!cardRef.current) {
             console.log("card reference error!");
+            return;    
         }
 
         if (button === "complete") {
@@ -272,6 +279,7 @@ function Main() {
         } else {
             await delayTask(cardRef.current);
         }
+        // TODO: for later, this filter setting can be changed for user preference 
         setTasks(prevTasks =>
             [...prevTasks].sort((a, b) => a.dueDate - b.dueDate)
         );
